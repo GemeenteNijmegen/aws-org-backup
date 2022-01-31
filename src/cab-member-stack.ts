@@ -49,26 +49,20 @@ export class CabMemberStack extends core.Stack {
     }));
 
     key.addToResourcePolicy(new iam.PolicyStatement({
-      sid: 'Allow use of the key by authorized Backup principal',
+      sid: 'Allow alias creation during setup',
       effect: iam.Effect.ALLOW,
       principals: [new iam.AnyPrincipal],
       actions: [
-        'kms:Decrypt',
-        'kms:Encrypt',
-        'kms:ReEncrypt*',
-        'kms:GenerateDataKey',
-        'kms:GenerateDataKeyWithoutPlaintext',
-        'kms:DescribeKey',
+        'kms:CreateAlias',
       ],
       resources: ['*'],
       conditions: {
         StringEquals: {
-          'kms:CallerAccount': core.Stack.of(this).account,
-          'kms:ViaService': `cloudformation.${core.Stack.of(this).region}.amazonaws.com`,
+          'kms:CallerAccount': core.Aws.ACCOUNT_ID,
+          'kms:ViaService': `cloudformation.${core.Aws.REGION}.amazonaws.com`,
         },
       },
     }));
-
 
     // cabrole.addToPolicy(new iam.PolicyStatement({
     //   actions: ['sts:AssumeRole'],
