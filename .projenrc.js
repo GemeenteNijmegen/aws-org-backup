@@ -12,7 +12,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     '@aws-cdk/custom-resources',
     '@aws-cdk/aws-kms',
     '@aws-cdk/aws-backup',
-    // '@aws-cdk/aws-s3',
+    '@aws-cdk/aws-ssm',
   ],
   context: {
     '@aws-cdk/core:newStyleStackSynthesis': true,

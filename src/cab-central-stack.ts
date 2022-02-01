@@ -1,51 +1,87 @@
+import * as backup from '@aws-cdk/aws-backup';
 import * as iam from '@aws-cdk/aws-iam';
+import * as kms from '@aws-cdk/aws-kms';
 import * as core from '@aws-cdk/core';
-//import * as s3 from '@aws-cdk/aws-s3';
+import { statics } from './statics';
 
-export class CabIamRole extends core.Stack {
-  constructor(scope: core.Construct, id: string, props: core.StackProps) {
-    super(scope, id, props);
+export class CabCentralStack extends core.Stack {
 
-    new iam.Role(this, 'Role', {
-      assumedBy: new iam.ServicePrincipal('backup.amazonaws.com'),
-      managedPolicies: [
-        iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSBackupServiceRolePolicyForBackup'),
-        iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSBackupServiceRolePolicyForRestores'),
-      ],
-      path: '/',
-      roleName: 'oblcc-cabackup-role',
+  constructor(scope: core.Construct, id: string) {
+    super(scope, id);
+
+    const cabCentralKey = new kms.Key(this, 'cabackup-central-kms', {
+      removalPolicy: core.RemovalPolicy.DESTROY,
+      pendingWindow: core.Duration.days(7),
+      alias: 'cabackup-central-kms',
+      description: 'Symmetric AWS CMK for Member Account Backup Vault Encryption',
+      enableKeyRotation: true,
     });
 
-    // cabrole.addToPolicy(new iam.PolicyStatement({
-    //   actions: ['sts:AssumeRole'],
-    // }));
+    cabCentralKey.addToResourcePolicy(new iam.PolicyStatement({
+      sid: 'Allow use of the key by authorized Organizations member accounts',
+      effect: iam.Effect.ALLOW,
+      principals: [new iam.ArnPrincipal(`arn:aws:iam::${core.Aws.ACCOUNT_ID}:role/${statics.cab_iamRoleName}`)],
+      actions: [
+        'kms:Decrypt',
+        'kms:Encrypt',
+        'kms:ReEncrypt*',
+        'kms:GenerateDataKey*',
+        'kms:CreateGrant',
+        'kms:ListGrants',
+        'kms:DescribeKey',
+      ],
+      resources: ['*'],
+      conditions: {
+        StringEquals: {
+          'aws:PrincipalOrgID': statics.cab_orgId,
+        },
+      },
+    }));
 
-    // new s3.Bucket(this, 'Mybucket')
+    cabCentralKey.addToResourcePolicy(new iam.PolicyStatement({
+      sid: 'Allow alias creation during setup',
+      effect: iam.Effect.ALLOW,
+      principals: [new iam.AnyPrincipal],
+      actions: [
+        'kms:CreateAlias',
+      ],
+      resources: ['*'],
+      conditions: {
+        StringEquals: {
+          'kms:CallerAccount': core.Aws.ACCOUNT_ID,
+          'kms:ViaService': `cloudformation.${core.Aws.REGION}.amazonaws.com`,
+        },
+      },
+    }));
 
-    // new core.CfnStackSet(this, 'StackSet', {
-    //   stackSetName: 'Sander-test',
-    //   permissionModel: 'SERVICE_MANAGED',
-    //   autoDeployment: {
-    //     enabled: true,
-    //     retainStacksOnAccountRemoval: false,
-    //   },
-    //   stackInstancesGroup: [
-    //     {
-    //       regions: ['eu-west-1'],
-    //       deploymentTargets: {
-    //         organizationalUnitIds: ['ou-mbm8-xzrssyfm'],
-    //       },
-    //     },
-    //   ],
-    //   templateBody: `
-    //     Resources:
-    //       Topic:
-    //         Type: AWS::SNS::Topic
-    //         Properties:
-    //           TopicName: Events
-    //   `,
-    // });
+    const centralVault = new backup.BackupVault(this, 'cabackup-central-vault', {
+      backupVaultName: 'cdk-cabackup-central-vault',
+      encryptionKey: cabCentralKey,
+      accessPolicy: new iam.PolicyDocument({
+        statements: [
+          new iam.PolicyStatement({
+            effect: iam.Effect.ALLOW,
+            principals: [new iam.AnyPrincipal],
+            actions: [
+              'backup:CopyIntoBackupVault',
+            ],
+            resources: ['*'],
+            conditions: {
+              StringEquals: {
+                'aws:PrincipalOrgID': statics.cab_orgId,
+              },
+            },
+          }),
+        ],
+      }),
 
+    });
+
+    new core.CfnOutput(this, 'centralVaultArn', {
+      value: centralVault.backupVaultArn,
+      description: 'Central Vault ARN Export',
+      exportName: 'centralVaultArn',
+    });
 
   }
 }

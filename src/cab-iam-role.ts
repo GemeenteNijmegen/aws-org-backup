@@ -15,7 +15,7 @@ export class CabIamRole extends core.Stack {
         iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSBackupServiceRolePolicyForRestores'),
       ],
       path: '/',
-      roleName: statics.iamRoleName_cab_member,
+      roleName: statics.cab_iamRoleName,
     });
 
     // new ssm.StringParameter(this,'cab-member-role-ssmparameter',{

@@ -19,19 +19,9 @@ export class CabMemberStack extends core.Stack {
     });
 
     cabMemberKey.addToResourcePolicy(new iam.PolicyStatement({
-      sid: 'Enable IAM User Permissions',
-      effect: iam.Effect.ALLOW,
-      principals: [new iam.AccountRootPrincipal()],
-      actions: [
-        'kms:*',
-      ],
-      resources: ['*'],
-    }));
-
-    cabMemberKey.addToResourcePolicy(new iam.PolicyStatement({
       sid: 'Allow use of the key by authorized Backup principal',
       effect: iam.Effect.ALLOW,
-      principals: [new iam.ArnPrincipal(`arn:aws:iam::${core.Aws.ACCOUNT_ID}:role/${statics.iamRoleName_cab_member}`)],
+      principals: [new iam.ArnPrincipal(`arn:aws:iam::${core.Aws.ACCOUNT_ID}:role/${statics.cab_iamRoleName}`)],
       actions: [
         'kms:Decrypt',
         'kms:Encrypt',
