@@ -1,0 +1,20 @@
+{
+  "version": "16.0.0",
+  "files": {
+    "99e14187b55b8c8ef2b912ebe557161f88b4b1b0833a8edc90658854b8876c78": {
+      "source": {
+        "path": "awscabackuppipelineMasterCabMasterStack4F6526D4.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "267098846992-eu-west-1": {
+          "bucketName": "cdk-hnb659fds-assets-267098846992-eu-west-1",
+          "objectKey": "99e14187b55b8c8ef2b912ebe557161f88b4b1b0833a8edc90658854b8876c78.json",
+          "region": "eu-west-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::267098846992:role/cdk-hnb659fds-file-publishing-role-267098846992-eu-west-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

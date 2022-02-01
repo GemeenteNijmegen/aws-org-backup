@@ -1,0 +1,411 @@
+{
+  "version": "16.0.0",
+  "artifacts": {
+    "awscabackuppipelineProdCabIamRoleED10819F.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "awscabackuppipelineProdCabIamRoleED10819F.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "awscabackuppipelineProdCabIamRoleED10819F": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://678826754533/eu-west-1",
+      "properties": {
+        "templateFile": "awscabackuppipelineProdCabIamRoleED10819F.template.json",
+        "validateOnSynth": true,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::678826754533:role/cdk-hnb659fds-deploy-role-678826754533-eu-west-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::678826754533:role/cdk-hnb659fds-cfn-exec-role-678826754533-eu-west-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-678826754533-eu-west-1/817f3c540015258b5749ab6777bd2ea29a75ca1e03ef1f450d5c79c6abff2292.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "awscabackuppipelineProdCabIamRoleED10819F.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::678826754533:role/cdk-hnb659fds-lookup-role-678826754533-eu-west-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        },
+        "stackName": "Prod-CabIamRole"
+      },
+      "dependencies": [
+        "awscabackuppipelineProdCabIamRoleED10819F.assets"
+      ],
+      "metadata": {
+        "/awscabackup-pipeline/Prod/CabIamRole/Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "Role1ABCC5F0",
+            "trace": [
+              "new Role (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/aws-iam/lib/role.ts:201:18)",
+              "new CabIamRole (/home/sander/dev/oblcc-ca-backup/src/cab-iam-role.ts:11:5)",
+              "new MemberAccountStage (/home/sander/dev/oblcc-ca-backup/src/pipeline-stack.ts:13:5)",
+              "new PipelineStack (/home/sander/dev/oblcc-ca-backup/src/pipeline-stack.ts:59:23)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/src/main.ts:11:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Module.m._compile (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/awscabackup-pipeline/Prod/CabIamRole/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata",
+            "trace": [
+              "new MetadataResource (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:22:24)",
+              "/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "MemberAccountStage.synth (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "Object.pipelineSynth (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/private/construct-internals.ts:27:16)",
+              "Function.fromStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/blueprint/stage-deployment.ts:27:22)",
+              "Wave.addStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/blueprint/wave.ts:34:33)",
+              "CodePipeline.addStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:51:42)",
+              "new PipelineStack (/home/sander/dev/oblcc-ca-backup/src/pipeline-stack.ts:59:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/src/main.ts:11:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Module.m._compile (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/awscabackup-pipeline/Prod/CabIamRole/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion",
+            "trace": [
+              "addBootstrapVersionRule (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:478:17)",
+              "DefaultStackSynthesizer.synthesize (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:298:7)",
+              "/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:184:29",
+              "visit (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "synthesizeTree (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:176:3)",
+              "Object.synthesize (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:39:3)",
+              "MemberAccountStage.synth (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "Object.pipelineSynth (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/private/construct-internals.ts:27:16)",
+              "Function.fromStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/blueprint/stage-deployment.ts:27:22)",
+              "Wave.addStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/blueprint/wave.ts:34:33)",
+              "CodePipeline.addStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:51:42)",
+              "new PipelineStack (/home/sander/dev/oblcc-ca-backup/src/pipeline-stack.ts:59:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/src/main.ts:11:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Module.m._compile (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/awscabackup-pipeline/Prod/CabIamRole/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion",
+            "trace": [
+              "addBootstrapVersionRule (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:488:3)",
+              "DefaultStackSynthesizer.synthesize (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:298:7)",
+              "/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:184:29",
+              "visit (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "synthesizeTree (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:176:3)",
+              "Object.synthesize (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:39:3)",
+              "MemberAccountStage.synth (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "Object.pipelineSynth (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/private/construct-internals.ts:27:16)",
+              "Function.fromStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/blueprint/stage-deployment.ts:27:22)",
+              "Wave.addStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/blueprint/wave.ts:34:33)",
+              "CodePipeline.addStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:51:42)",
+              "new PipelineStack (/home/sander/dev/oblcc-ca-backup/src/pipeline-stack.ts:59:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/src/main.ts:11:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Module.m._compile (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ]
+      },
+      "displayName": "awscabackup-pipeline/Prod/CabIamRole"
+    },
+    "awscabackuppipelineProdCabMemberStackAC67AFD2.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "awscabackuppipelineProdCabMemberStackAC67AFD2.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "awscabackuppipelineProdCabMemberStackAC67AFD2": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://678826754533/eu-west-1",
+      "properties": {
+        "templateFile": "awscabackuppipelineProdCabMemberStackAC67AFD2.template.json",
+        "validateOnSynth": true,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::678826754533:role/cdk-hnb659fds-deploy-role-678826754533-eu-west-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::678826754533:role/cdk-hnb659fds-cfn-exec-role-678826754533-eu-west-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-678826754533-eu-west-1/d0d78b02151f46d32cf3c86f05974a3077477a97a8b20106f7b79514b8f5a26d.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "awscabackuppipelineProdCabMemberStackAC67AFD2.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::678826754533:role/cdk-hnb659fds-lookup-role-678826754533-eu-west-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        },
+        "stackName": "Prod-CabMemberStack"
+      },
+      "dependencies": [
+        "awscabackuppipelineProdCabMemberStackAC67AFD2.assets"
+      ],
+      "metadata": {
+        "/awscabackup-pipeline/Prod/CabMemberStack/cabackup-member-kms/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cabackupmemberkms329D9E52",
+            "trace": [
+              "new Key (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/aws-kms/lib/key.ts:439:22)",
+              "new CabMemberStack (/home/sander/dev/oblcc-ca-backup/src/cab-member-stack.ts:13:26)",
+              "new MemberAccountStage (/home/sander/dev/oblcc-ca-backup/src/pipeline-stack.ts:14:5)",
+              "new PipelineStack (/home/sander/dev/oblcc-ca-backup/src/pipeline-stack.ts:59:23)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/src/main.ts:11:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Module.m._compile (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/awscabackup-pipeline/Prod/CabMemberStack/cabackup-member-kms/Alias/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cabackupmemberkmsAliasAA0ACD2D",
+            "trace": [
+              "new Alias (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/aws-kms/lib/alias.ts:143:22)",
+              "Key.addAlias (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/aws-kms/lib/key.ts:74:19)",
+              "new Key (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/aws-kms/lib/key.ts:456:12)",
+              "new CabMemberStack (/home/sander/dev/oblcc-ca-backup/src/cab-member-stack.ts:13:26)",
+              "new MemberAccountStage (/home/sander/dev/oblcc-ca-backup/src/pipeline-stack.ts:14:5)",
+              "new PipelineStack (/home/sander/dev/oblcc-ca-backup/src/pipeline-stack.ts:59:23)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/src/main.ts:11:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Module.m._compile (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/awscabackup-pipeline/Prod/CabMemberStack/cabackup-member-vault/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "cabackupmembervault1C5A0EE5",
+            "trace": [
+              "new BackupVault (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/aws-backup/lib/vault.ts:158:19)",
+              "new CabMemberStack (/home/sander/dev/oblcc-ca-backup/src/cab-member-stack.ts:57:5)",
+              "new MemberAccountStage (/home/sander/dev/oblcc-ca-backup/src/pipeline-stack.ts:14:5)",
+              "new PipelineStack (/home/sander/dev/oblcc-ca-backup/src/pipeline-stack.ts:59:23)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/src/main.ts:11:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Module.m._compile (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/awscabackup-pipeline/Prod/CabMemberStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata",
+            "trace": [
+              "new MetadataResource (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/metadata-resource.ts:22:24)",
+              "/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:166:5",
+              "visit (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "injectMetadataResources (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:157:3)",
+              "Object.synthesize (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:18:3)",
+              "MemberAccountStage.synth (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "Object.pipelineSynth (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/private/construct-internals.ts:27:16)",
+              "Function.fromStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/blueprint/stage-deployment.ts:27:22)",
+              "Wave.addStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/blueprint/wave.ts:34:33)",
+              "CodePipeline.addStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:51:42)",
+              "new PipelineStack (/home/sander/dev/oblcc-ca-backup/src/pipeline-stack.ts:59:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/src/main.ts:11:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Module.m._compile (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/awscabackup-pipeline/Prod/CabMemberStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion",
+            "trace": [
+              "addBootstrapVersionRule (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:478:17)",
+              "DefaultStackSynthesizer.synthesize (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:298:7)",
+              "/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:184:29",
+              "visit (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "synthesizeTree (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:176:3)",
+              "Object.synthesize (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:39:3)",
+              "MemberAccountStage.synth (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "Object.pipelineSynth (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/private/construct-internals.ts:27:16)",
+              "Function.fromStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/blueprint/stage-deployment.ts:27:22)",
+              "Wave.addStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/blueprint/wave.ts:34:33)",
+              "CodePipeline.addStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:51:42)",
+              "new PipelineStack (/home/sander/dev/oblcc-ca-backup/src/pipeline-stack.ts:59:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/src/main.ts:11:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Module.m._compile (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ],
+        "/awscabackup-pipeline/Prod/CabMemberStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion",
+            "trace": [
+              "addBootstrapVersionRule (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:488:3)",
+              "DefaultStackSynthesizer.synthesize (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/stack-synthesizers/default-synthesizer.ts:298:7)",
+              "/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:184:29",
+              "visit (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:231:5)",
+              "visit (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:227:5)",
+              "synthesizeTree (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:176:3)",
+              "Object.synthesize (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/private/synthesis.ts:39:3)",
+              "MemberAccountStage.synth (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/core/lib/stage.ts:94:23)",
+              "Object.pipelineSynth (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/private/construct-internals.ts:27:16)",
+              "Function.fromStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/blueprint/stage-deployment.ts:27:22)",
+              "Wave.addStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/blueprint/wave.ts:34:33)",
+              "CodePipeline.addStage (/home/sander/dev/oblcc-ca-backup/node_modules/@aws-cdk/pipelines/lib/main/pipeline-base.ts:51:42)",
+              "new PipelineStack (/home/sander/dev/oblcc-ca-backup/src/pipeline-stack.ts:59:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/src/main.ts:11:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Module.m._compile (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1056:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Object.require.extensions.<computed> [as .ts] (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/index.ts:1059:12)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "main (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:198:14)",
+              "Object.<anonymous> (/home/sander/dev/oblcc-ca-backup/node_modules/ts-node/src/bin.ts:288:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1097:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1149:10)",
+              "Module.load (node:internal/modules/cjs/loader:975:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:822:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:17:47"
+            ]
+          }
+        ]
+      },
+      "displayName": "awscabackup-pipeline/Prod/CabMemberStack"
+    }
+  }
+}

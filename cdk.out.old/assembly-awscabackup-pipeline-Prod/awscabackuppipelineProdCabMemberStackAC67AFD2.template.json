@@ -1,0 +1,194 @@
+{
+  "Resources": {
+    "cabackupmemberkms329D9E52": {
+      "Type": "AWS::KMS::Key",
+      "Properties": {
+        "KeyPolicy": {
+          "Statement": [
+            {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":iam::678826754533:root"
+                    ]
+                  ]
+                }
+              },
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "kms:Decrypt",
+                "kms:Encrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey",
+                "kms:GenerateDataKeyWithoutPlaintext",
+                "kms:DescribeKey"
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "kms:ViaService": "backup.amazonaws.com"
+                }
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:iam::",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":role/cabackup-role"
+                    ]
+                  ]
+                }
+              },
+              "Resource": "*",
+              "Sid": "Allow use of the key by authorized Backup principal"
+            },
+            {
+              "Action": "kms:CreateAlias",
+              "Condition": {
+                "StringEquals": {
+                  "kms:CallerAccount": {
+                    "Ref": "AWS::AccountId"
+                  },
+                  "kms:ViaService": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "cloudformation.",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ".amazonaws.com"
+                      ]
+                    ]
+                  }
+                }
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "*"
+              },
+              "Resource": "*",
+              "Sid": "Allow alias creation during setup"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "Symmetric AWS CMK for Member Account Backup Vault Encryption",
+        "EnableKeyRotation": true,
+        "PendingWindowInDays": 7
+      },
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "aws:cdk:path": "awscabackup-pipeline/Prod/CabMemberStack/cabackup-member-kms/Resource"
+      }
+    },
+    "cabackupmemberkmsAliasAA0ACD2D": {
+      "Type": "AWS::KMS::Alias",
+      "Properties": {
+        "AliasName": "alias/cabackup-member-kms",
+        "TargetKeyId": {
+          "Fn::GetAtt": [
+            "cabackupmemberkms329D9E52",
+            "Arn"
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "awscabackup-pipeline/Prod/CabMemberStack/cabackup-member-kms/Alias/Resource"
+      }
+    },
+    "cabackupmembervault1C5A0EE5": {
+      "Type": "AWS::Backup::BackupVault",
+      "Properties": {
+        "BackupVaultName": "cdk-cabackup-member-vault",
+        "AccessPolicy": {
+          "Statement": [
+            {
+              "Action": "backup:CopyIntoBackupVault",
+              "Condition": {
+                "StringEquals": {
+                  "aws:PrincipalOrgID": "o-lk7av3vrsd"
+                }
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "*"
+              },
+              "Resource": "*"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "EncryptionKeyArn": {
+          "Fn::GetAtt": [
+            "cabackupmemberkms329D9E52",
+            "Arn"
+          ]
+        }
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "awscabackup-pipeline/Prod/CabMemberStack/cabackup-member-vault/Resource"
+      }
+    },
+    "CDKMetadata": {
+      "Type": "AWS::CDK::Metadata",
+      "Properties": {
+        "Analytics": "v2:deflate64:H4sIAAAAAAAA/02MwQ7CIBBEv6V3uhU18ar26K0m3pGuCaWFhgWNIfvvCl48vZnM5EmQ+y1smqN6UatH22XtA0K+RqWt6L2jGJKOon+4AcmnoJFF+Wa7EOQLvstUcJqNolJqYHH/CtIK+Vx5U2mulr/KzML5EWGi7ikPsAPZTGRMG5KLZkEYfvwAHEV9rKQAAAA="
+      },
+      "Metadata": {
+        "aws:cdk:path": "awscabackup-pipeline/Prod/CabMemberStack/CDKMetadata/Default"
+      }
+    }
+  },
+  "Parameters": {
+    "BootstrapVersion": {
+      "Type": "AWS::SSM::Parameter::Value<String>",
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+    }
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                  ],
+                  {
+                    "Ref": "BootstrapVersion"
+                  }
+                ]
+              }
+            ]
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+        }
+      ]
+    }
+  }
+}
