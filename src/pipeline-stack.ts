@@ -10,8 +10,9 @@ class MemberAccountStage extends core.Stage {
   constructor(scope: core.Construct, id: string, props: core.StackProps) {
     super(scope, id, props);
 
-    new CabIamRole(this, 'CabIamRole');
-    new CabMemberStack(this, 'CabMemberStack');
+    const cabIamRole = new CabIamRole(this, 'CabIamRole');
+    const cabMemberStack = new CabMemberStack(this, 'CabMemberStack');
+    cabMemberStack.addDependency(cabIamRole);
   }
 }
 
@@ -19,8 +20,9 @@ class CentralAccountStage extends core.Stage {
   constructor(scope: core.Construct, id: string, props: core.StackProps) {
     super(scope, id, props);
 
-    new CabIamRole(this, 'CabIamRole');
-    new CabCentralStack(this, 'CabCentralStack');
+    const cabIamRole = new CabIamRole(this, 'CabIamRole');
+    const cabMCentralStack = new CabCentralStack(this, 'CabCentralStack');
+    cabMCentralStack.addDependency(cabIamRole);
   }
 }
 
