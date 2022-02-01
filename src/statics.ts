@@ -4,7 +4,10 @@
  */
 
 export class statics {
-  //statics for role names
+  //static variables for role names
   static readonly iamRoleName_cab_member: string = 'cabackup-member-role';
+
+  //static variables for organization id
+  static readonly cab_orgId: string = 'o-lk7av3vrsd';
 
 }

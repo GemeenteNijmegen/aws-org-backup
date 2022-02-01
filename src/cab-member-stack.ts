@@ -1,7 +1,7 @@
+import * as backup from '@aws-cdk/aws-backup';
 import * as iam from '@aws-cdk/aws-iam';
 import * as kms from '@aws-cdk/aws-kms';
 import * as core from '@aws-cdk/core';
-import * as backup from '@aws-cdk/aws-backup';
 import { statics } from './statics';
 
 export class CabMemberStack extends core.Stack {
@@ -64,7 +64,7 @@ export class CabMemberStack extends core.Stack {
       },
     }));
 
-    new backup.BackupVault(this,'cabackup-member-vault',{
+    new backup.BackupVault(this, 'cabackup-member-vault', {
       backupVaultName: 'cdk-cabackup-member-vault',
       encryptionKey: cabMemberKey,
       accessPolicy: new iam.PolicyDocument({
@@ -85,7 +85,7 @@ export class CabMemberStack extends core.Stack {
         ],
       }),
 
-    })
+    });
 
     // cabrole.addToPolicy(new iam.PolicyStatement({
     //   actions: ['sts:AssumeRole'],
