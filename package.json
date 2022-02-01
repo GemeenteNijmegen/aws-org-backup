@@ -48,6 +48,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
+    "@aws-cdk/aws-backup": "^1.142.0",
     "@aws-cdk/aws-codecommit": "^1.142.0",
     "@aws-cdk/aws-iam": "^1.142.0",
     "@aws-cdk/aws-kms": "^1.142.0",

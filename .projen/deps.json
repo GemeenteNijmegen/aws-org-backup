@@ -81,6 +81,11 @@
       "type": "build"
     },
     {
+      "name": "@aws-cdk/aws-backup",
+      "version": "^1.142.0",
+      "type": "runtime"
+    },
+    {
       "name": "@aws-cdk/aws-codecommit",
       "version": "^1.142.0",
       "type": "runtime"

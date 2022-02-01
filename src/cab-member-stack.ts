@@ -1,7 +1,7 @@
 import * as iam from '@aws-cdk/aws-iam';
 import * as kms from '@aws-cdk/aws-kms';
 import * as core from '@aws-cdk/core';
-//import * as ssm from '@aws-cdk/aws-ssm';
+import * as backup from '@aws-cdk/aws-backup';
 import { statics } from './statics';
 
 export class CabMemberStack extends core.Stack {
@@ -10,7 +10,7 @@ export class CabMemberStack extends core.Stack {
 
     //const backupRoleName = ssm.StringParameter.valueForStringParameter(this,'/gemeentenijmegen/aws-backup/backup-role')
 
-    const key = new kms.Key(this, 'cabackup-member-kms', {
+    const cabMemberKey = new kms.Key(this, 'cabackup-member-kms', {
       removalPolicy: core.RemovalPolicy.DESTROY,
       pendingWindow: core.Duration.days(7),
       alias: 'cabackup-member-kms',
@@ -18,7 +18,7 @@ export class CabMemberStack extends core.Stack {
       enableKeyRotation: true,
     });
 
-    key.addToResourcePolicy(new iam.PolicyStatement({
+    cabMemberKey.addToResourcePolicy(new iam.PolicyStatement({
       sid: 'Enable IAM User Permissions',
       effect: iam.Effect.ALLOW,
       principals: [new iam.AccountRootPrincipal()],
@@ -28,7 +28,7 @@ export class CabMemberStack extends core.Stack {
       resources: ['*'],
     }));
 
-    key.addToResourcePolicy(new iam.PolicyStatement({
+    cabMemberKey.addToResourcePolicy(new iam.PolicyStatement({
       sid: 'Allow use of the key by authorized Backup principal',
       effect: iam.Effect.ALLOW,
       principals: [new iam.ArnPrincipal(`arn:aws:iam::${core.Aws.ACCOUNT_ID}:role/${statics.iamRoleName_cab_member}`)],
@@ -48,7 +48,7 @@ export class CabMemberStack extends core.Stack {
       },
     }));
 
-    key.addToResourcePolicy(new iam.PolicyStatement({
+    cabMemberKey.addToResourcePolicy(new iam.PolicyStatement({
       sid: 'Allow alias creation during setup',
       effect: iam.Effect.ALLOW,
       principals: [new iam.AnyPrincipal],
@@ -63,6 +63,29 @@ export class CabMemberStack extends core.Stack {
         },
       },
     }));
+
+    new backup.BackupVault(this,'cabackup-member-vault',{
+      backupVaultName: 'cdk-cabackup-member-vault',
+      encryptionKey: cabMemberKey,
+      accessPolicy: new iam.PolicyDocument({
+        statements: [
+          new iam.PolicyStatement({
+            effect: iam.Effect.ALLOW,
+            principals: [new iam.AnyPrincipal],
+            actions: [
+              'backup:CopyIntoBackupVault',
+            ],
+            resources: ['*'],
+            conditions: {
+              StringEquals: {
+                'aws:PrincipalOrgID': statics.cab_orgId,
+              },
+            },
+          }),
+        ],
+      }),
+
+    })
 
     // cabrole.addToPolicy(new iam.PolicyStatement({
     //   actions: ['sts:AssumeRole'],

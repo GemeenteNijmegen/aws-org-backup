@@ -11,7 +11,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     '@aws-cdk/aws-codecommit',
     '@aws-cdk/custom-resources',
     '@aws-cdk/aws-kms',
-    // '@aws-cdk/aws-ssm',
+    '@aws-cdk/aws-backup',
     // '@aws-cdk/aws-s3',
   ],
   context: {

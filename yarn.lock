@@ -110,6 +110,22 @@
     "@aws-cdk/core" "1.142.0"
     constructs "^3.3.69"
 
+"@aws-cdk/aws-backup@^1.142.0":
+  version "1.142.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-backup/-/aws-backup-1.142.0.tgz#c8ffdeb0eeecc9d806ac276b414815a779e35cfb"
+  integrity sha512-pFfDlbmZ3Fp43bnbWTn/HOGVm2XhvR9IT20tmkftCMakA+FxBBOQpgteYM6EG4sVRUkHQLeb6UKFrR7w6XCDnw==
+  dependencies:
+    "@aws-cdk/aws-dynamodb" "1.142.0"
+    "@aws-cdk/aws-ec2" "1.142.0"
+    "@aws-cdk/aws-efs" "1.142.0"
+    "@aws-cdk/aws-events" "1.142.0"
+    "@aws-cdk/aws-iam" "1.142.0"
+    "@aws-cdk/aws-kms" "1.142.0"
+    "@aws-cdk/aws-rds" "1.142.0"
+    "@aws-cdk/aws-sns" "1.142.0"
+    "@aws-cdk/core" "1.142.0"
+    constructs "^3.3.69"
+
 "@aws-cdk/aws-certificatemanager@1.142.0":
   version "1.142.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-certificatemanager/-/aws-certificatemanager-1.142.0.tgz#83889e4730ad026e6004ebf47bb2d899c6c3d53c"
@@ -284,6 +300,21 @@
     "@aws-cdk/custom-resources" "1.142.0"
     constructs "^3.3.69"
     punycode "^2.1.1"
+
+"@aws-cdk/aws-dynamodb@1.142.0":
+  version "1.142.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-dynamodb/-/aws-dynamodb-1.142.0.tgz#04f135b51963d1a0633b46c7917397d745f273c3"
+  integrity sha512-8Ig6btaxRYn1wMUEJSbSfh5duq6lj6FWVbE0Hu5P45EzsWkIjy1x9PpCTP4q+Z+jm+h7Vgko2gjvlc5Efz7r4g==
+  dependencies:
+    "@aws-cdk/aws-applicationautoscaling" "1.142.0"
+    "@aws-cdk/aws-cloudwatch" "1.142.0"
+    "@aws-cdk/aws-iam" "1.142.0"
+    "@aws-cdk/aws-kinesis" "1.142.0"
+    "@aws-cdk/aws-kms" "1.142.0"
+    "@aws-cdk/aws-lambda" "1.142.0"
+    "@aws-cdk/core" "1.142.0"
+    "@aws-cdk/custom-resources" "1.142.0"
+    constructs "^3.3.69"
 
 "@aws-cdk/aws-ec2@1.142.0":
   version "1.142.0"
@@ -526,6 +557,23 @@
     "@aws-cdk/aws-iam" "1.142.0"
     "@aws-cdk/aws-kms" "1.142.0"
     "@aws-cdk/aws-s3-assets" "1.142.0"
+    "@aws-cdk/core" "1.142.0"
+    "@aws-cdk/cx-api" "1.142.0"
+    constructs "^3.3.69"
+
+"@aws-cdk/aws-rds@1.142.0":
+  version "1.142.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-rds/-/aws-rds-1.142.0.tgz#b26692e44cdd28dfc59d23353cd2897a47d3ad16"
+  integrity sha512-21q4n87TwMod3zc2qqEToYIdrjHLCZUKkIDmXUUT0Y/u9O6PRgoDofB3lVtMSsyiL9z/YL+1EC/Tv+dsfKFj4A==
+  dependencies:
+    "@aws-cdk/aws-cloudwatch" "1.142.0"
+    "@aws-cdk/aws-ec2" "1.142.0"
+    "@aws-cdk/aws-events" "1.142.0"
+    "@aws-cdk/aws-iam" "1.142.0"
+    "@aws-cdk/aws-kms" "1.142.0"
+    "@aws-cdk/aws-logs" "1.142.0"
+    "@aws-cdk/aws-s3" "1.142.0"
+    "@aws-cdk/aws-secretsmanager" "1.142.0"
     "@aws-cdk/core" "1.142.0"
     "@aws-cdk/cx-api" "1.142.0"
     constructs "^3.3.69"
