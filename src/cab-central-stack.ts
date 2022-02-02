@@ -5,7 +5,6 @@ import * as core from '@aws-cdk/core';
 import { statics } from './statics';
 
 export class CabCentralStack extends core.Stack {
-
   constructor(scope: core.Construct, id: string) {
     super(scope, id);
 
@@ -75,12 +74,6 @@ export class CabCentralStack extends core.Stack {
         ],
       }),
 
-    });
-
-    new core.CfnOutput(this, 'centralVaultArn', {
-      value: centralVault.backupVaultArn,
-      description: 'Central Vault ARN Export',
-      exportName: 'centralVaultArn',
     });
 
   }

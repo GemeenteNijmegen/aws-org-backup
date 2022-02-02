@@ -8,8 +8,6 @@ export class CabMemberStack extends core.Stack {
   constructor(scope: core.Construct, id: string) {
     super(scope, id);
 
-    //const backupRoleName = ssm.StringParameter.valueForStringParameter(this,'/gemeentenijmegen/aws-backup/backup-role')
-
     const cabMemberKey = new kms.Key(this, 'cabackup-member-kms', {
       removalPolicy: core.RemovalPolicy.DESTROY,
       pendingWindow: core.Duration.days(7),
