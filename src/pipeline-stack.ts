@@ -5,6 +5,7 @@ import { CabCentralStack } from './cab-central-stack';
 import { CabIamRole } from './cab-iam-role';
 import { CabMasterStack } from './cab-master-stack';
 import { CabMemberStack } from './cab-member-stack';
+import { statics } from './statics';
 
 class MemberAccountStage extends core.Stage {
   constructor(scope: core.Construct, id: string, props: core.StackProps) {
@@ -65,6 +66,13 @@ export class PipelineStack extends core.Stack {
       },
     }));
 
+    pipeline.addStage(new MemberAccountStage(this, 'test', {
+      env: {
+        account: statics.cab_memberAccount[0], // AWSBackup member account
+        region: 'eu-west-1',
+      },
+    }));
+
     pipeline.addStage(new MemberAccountStage(this, 'Dev', {
       env: {
         account: '039676969010', // AWSBackup member account
@@ -74,7 +82,7 @@ export class PipelineStack extends core.Stack {
 
     pipeline.addStage(new CentralAccountStage(this, 'Backup', {
       env: {
-        account: '138114602286', // AWSBackup central account
+        account: statics.cab_backupAccount, // AWSBackup central account
         region: 'eu-west-1',
       },
     }));
