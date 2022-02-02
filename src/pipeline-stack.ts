@@ -59,26 +59,43 @@ export class PipelineStack extends core.Stack {
       }),
     });
 
-    pipeline.addStage(new MemberAccountStage(this, 'Prod', {
-      env: {
-        account: '678826754533', // AWSBackup member account
-        region: 'eu-west-1',
-      },
-    }));
+    for (var _i = 0; _i < statics.cab_memberAccount.length; _i+=2) {
+      pipeline.addStage(new MemberAccountStage(this, statics.cab_memberAccount[_i], {
+        env: {
+          account: statics.cab_memberAccount[_i+1], // AWSBackup member account
+          region: 'eu-west-1',
+        },
+      }));
+    }
 
-    pipeline.addStage(new MemberAccountStage(this, 'test', {
-      env: {
-        account: statics.cab_memberAccount[0], // AWSBackup member account
-        region: 'eu-west-1',
-      },
-    }));
+    // pipeline.addStage(new MemberAccountStage(this, statics.cab_memberAccount[0], {
+    //   env: {
+    //     account: statics.cab_memberAccount[1], // AWSBackup member account
+    //     region: 'eu-west-1',
+    //   },
+    // }));
 
-    pipeline.addStage(new MemberAccountStage(this, 'Dev', {
-      env: {
-        account: '039676969010', // AWSBackup member account
-        region: 'eu-west-1',
-      },
-    }));
+    // pipeline.addStage(new MemberAccountStage(this, statics.cab_memberAccount[2], {
+    //   env: {
+    //     account: statics.cab_memberAccount[3], // AWSBackup member account
+    //     region: 'eu-west-1',
+    //   },
+    // }));
+
+    // pipeline.addStage(new MemberAccountStage(this, 'Prod', {
+    //   env: {
+    //     account: '678826754533', // AWSBackup member account
+    //     region: 'eu-west-1',
+    //   },
+    // }));
+
+
+    // pipeline.addStage(new MemberAccountStage(this, 'Dev', {
+    //   env: {
+    //     account: '039676969010', // AWSBackup member account
+    //     region: 'eu-west-1',
+    //   },
+    // }));
 
     pipeline.addStage(new CentralAccountStage(this, 'Backup', {
       env: {
@@ -89,7 +106,7 @@ export class PipelineStack extends core.Stack {
 
     pipeline.addStage(new OrgAccountStage(this, 'Master', {
       env: {
-        account: '267098846992', // oblcc organizations account
+        account: statics.cab_orgsAccount, // oblcc organizations account
         region: 'eu-west-1',
       },
     }));

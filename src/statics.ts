@@ -14,13 +14,11 @@ export class statics {
   static readonly cab_memberVaultName: string = 'cdk-cabackup-member-vault';
 
   //static variables for account id's
+  static readonly cab_orgsAccount: string = '267098846992';
   static readonly cab_backupAccount: string = '138114602286';
   static readonly cab_memberAccount = [
-    '678826754533',
-    'b',
-    'c'
+    'Production', '678826754533',
+    'Development', '039676969010',
   ];
-  
-
 
 }
