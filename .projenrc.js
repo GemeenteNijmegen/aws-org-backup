@@ -13,6 +13,8 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     '@aws-cdk/aws-kms',
     '@aws-cdk/aws-backup',
     '@aws-cdk/aws-ssm',
+    '@aws-cdk/aws-s3',
+    '@aws-cdk/aws-lambda',
   ],
   context: {
     '@aws-cdk/core:newStyleStackSynthesis': true,

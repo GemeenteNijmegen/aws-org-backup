@@ -52,8 +52,8 @@ export class CabMemberStack extends core.Stack {
       },
     }));
 
-    new backup.BackupVault(this, 'cabackup-member-vault', {
-      backupVaultName: 'cdk-cabackup-member-vault',
+    new backup.BackupVault(this, statics.cab_memberVaultName, {
+      backupVaultName: statics.cab_memberVaultName,
       encryptionKey: cabMemberKey,
       accessPolicy: new iam.PolicyDocument({
         statements: [

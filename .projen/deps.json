@@ -101,6 +101,16 @@
       "type": "runtime"
     },
     {
+      "name": "@aws-cdk/aws-lambda",
+      "version": "^1.142.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-s3",
+      "version": "^1.142.0",
+      "type": "runtime"
+    },
+    {
       "name": "@aws-cdk/aws-ssm",
       "version": "^1.142.0",
       "type": "runtime"

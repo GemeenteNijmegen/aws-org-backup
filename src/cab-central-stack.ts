@@ -53,8 +53,8 @@ export class CabCentralStack extends core.Stack {
       },
     }));
 
-    new backup.BackupVault(this, 'cabackup-central-vault', {
-      backupVaultName: 'cdk-cabackup-central-vault',
+    new backup.BackupVault(this, statics.cab_centralVaultName, {
+      backupVaultName: statics.cab_centralVaultName,
       encryptionKey: cabCentralKey,
       accessPolicy: new iam.PolicyDocument({
         statements: [
