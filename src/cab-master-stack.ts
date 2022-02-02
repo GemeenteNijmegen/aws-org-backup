@@ -1,7 +1,7 @@
 
 import * as ssm from '@aws-cdk/aws-ssm';
 import * as core from '@aws-cdk/core';
-import {statics} from './statics';
+import { statics } from './statics';
 
 export class CabMasterStack extends core.Stack {
   constructor(scope: core.Construct, id: string) {
