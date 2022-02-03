@@ -1,8 +1,8 @@
 
+import * as iam from '@aws-cdk/aws-iam';
+import * as lambda from '@aws-cdk/aws-lambda';
 import * as ssm from '@aws-cdk/aws-ssm';
 import * as core from '@aws-cdk/core';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as iam from '@aws-cdk/aws-iam';
 import { statics } from './statics';
 
 export class CabMasterStack extends core.Stack {
@@ -21,7 +21,7 @@ export class CabMasterStack extends core.Stack {
       runtime: lambda.Runtime.PYTHON_3_8,
     });
 
-    lambdaFunction.role?.attachInlinePolicy(new iam.PolicyStatement({
+    lambdaFunction.addToRolePolicy(new iam.PolicyStatement({
       actions: ['sts:AssumeRole'],
       resources: ['*'],
     }));
@@ -57,26 +57,24 @@ export class CabMasterStack extends core.Stack {
     //   roleName: 'OrgPolicyCustomResourceManager',
     // });
 
-    
-//     OrgPolicyCustomResourceManagerRole.addToPolicy
 
-//     lambdaFunction.role.
-//     lambdaFunction.addToRolePolicy(new iam.PolicyStatement({
-//       actions: [
-//         'securityhub:CreateMembers',
-//         'securityhub:InviteMembers',
-//       ],
-//       resources: ['*'],
-//     }));
+    //     OrgPolicyCustomResourceManagerRole.addToPolicy
 
-//     lambdaFunction.addToRolePolicy(new iam.PolicyStatement({
-//       actions: [
-//         'sts:AssumeRole',
-//       ],
-//       resources: ['arn:aws:iam::*:role/securityhub-automation-role'],
-//     }));
+    //     lambdaFunction.role.
+    //     lambdaFunction.addToRolePolicy(new iam.PolicyStatement({
+    //       actions: [
+    //         'securityhub:CreateMembers',
+    //         'securityhub:InviteMembers',
+    //       ],
+    //       resources: ['*'],
+    //     }));
 
-
+    //     lambdaFunction.addToRolePolicy(new iam.PolicyStatement({
+    //       actions: [
+    //         'sts:AssumeRole',
+    //       ],
+    //       resources: ['arn:aws:iam::*:role/securityhub-automation-role'],
+    //     }));
 
 
   }
