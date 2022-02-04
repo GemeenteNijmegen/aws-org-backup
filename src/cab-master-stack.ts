@@ -56,7 +56,7 @@ export class CabMasterStack extends core.Stack {
       serviceToken: lambdaFunction.functionArn,
       resourceType: 'Custom::OrgPolicy',
       properties: {
-        PolicyPrefix: 'org-backup-policy',
+        PolicyPrefix: 'cdk-backup-policy',
         PolicyType: 'BACKUP_POLICY',
         PolicyTargets: memberAccounts,
         PolicyDescription: 'BackupPolicy for Daily Backup as per the resource selection criteria',
@@ -70,7 +70,7 @@ export class CabMasterStack extends core.Stack {
           'SCHEDULE_EXPRESSION_2 : cron(0 19 * * ? *)',
           `CENTRAL_VAULT_ARN : arn:aws:backup:${core.Aws.REGION}:${statics.cab_backupAccount}:backup-vault:${statics.cab_centralVaultName}`,
         ],
-        PolicyContents: `[
+        PolicyContents: [` 
                           {
                             "plans": {
                                 "VSS-Daily": {
@@ -138,8 +138,8 @@ export class CabMasterStack extends core.Stack {
                                     }
                                 }
                             }
-                          },
-                          {
+                          }`,
+                          `{
                             "plans": {
                                 "GEN-Daily": {
                                     "regions": {
@@ -199,8 +199,8 @@ export class CabMasterStack extends core.Stack {
                                     }
                                 }
                             }
-                          }
-                        ]`,
+                          }`
+                        ],
 
 
         // SecretId: this.cluster.secret?.secretArn,
