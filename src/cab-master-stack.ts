@@ -60,17 +60,15 @@ export class CabMasterStack extends core.Stack {
         PolicyType: 'BACKUP_POLICY',
         PolicyTargets: memberAccounts,
         PolicyDescription: 'BackupPolicy for Daily Backup as per the resource selection criteria',
-        Variables: [
-          `BACKUP_ROLE: ${statics.cab_iamRoleName}`,
-          `VAULT_NAME: ${statics.cab_memberVaultName}`,
-          'TAG_KEY : BackupPlan',
-          'TAG_VALUE_1 : VSS Backup',
-          'TAG_VALUE_2 : STD Backup',
-          'SCHEDULE_EXPRESSION_1 : cron(0 0/6 * * ? *)',
-          'SCHEDULE_EXPRESSION_2 : cron(0 19 * * ? *)',
-          `CENTRAL_VAULT_ARN : arn:aws:backup:${core.Aws.REGION}:${statics.cab_backupAccount}:backup-vault:${statics.cab_centralVaultName}`,
-        ],
-        PolicyContents: [` 
+        Variables: `BACKUP_ROLE: ${statics.cab_iamRoleName},
+                    VAULT_NAME: ${statics.cab_memberVaultName},
+                    TAG_KEY : BackupPlan,
+                    TAG_VALUE_1 : VSS Backup,
+                    TAG_VALUE_2 : STD Backup,
+                    SCHEDULE_EXPRESSION_1 : cron(0 0/6 * * ? *),
+                    SCHEDULE_EXPRESSION_2 : cron(0 19 * * ? *),
+                    CENTRAL_VAULT_ARN : arn:aws:backup:${core.Aws.REGION}:${statics.cab_backupAccount}:backup-vault:${statics.cab_centralVaultName}`,
+        PolicyContents: `[
                           {
                             "plans": {
                                 "VSS-Daily": {
@@ -138,8 +136,8 @@ export class CabMasterStack extends core.Stack {
                                     }
                                 }
                             }
-                          }`,
-                          `{
+                          },
+                          {
                             "plans": {
                                 "GEN-Daily": {
                                     "regions": {
@@ -199,8 +197,8 @@ export class CabMasterStack extends core.Stack {
                                     }
                                 }
                             }
-                          }`
-                        ],
+                          }
+                        ]`,
 
 
         // SecretId: this.cluster.secret?.secretArn,
