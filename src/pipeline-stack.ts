@@ -35,11 +35,8 @@ class OrgAccountStage extends core.Stage {
   }
 }
 
-export interface PipelineStackProps extends core.StackProps {
-}
-
 export class PipelineStack extends core.Stack {
-  constructor(scope: core.Construct, id: string, props: PipelineStackProps) {
+  constructor(scope: core.Construct, id: string, props: core.StackProps) {
     super(scope, id, props);
 
     const repository = new codecommit.Repository(this, 'repository', {
@@ -67,35 +64,6 @@ export class PipelineStack extends core.Stack {
         },
       }));
     }
-
-    // pipeline.addStage(new MemberAccountStage(this, statics.cab_memberAccount[0], {
-    //   env: {
-    //     account: statics.cab_memberAccount[1], // AWSBackup member account
-    //     region: 'eu-west-1',
-    //   },
-    // }));
-
-    // pipeline.addStage(new MemberAccountStage(this, statics.cab_memberAccount[2], {
-    //   env: {
-    //     account: statics.cab_memberAccount[3], // AWSBackup member account
-    //     region: 'eu-west-1',
-    //   },
-    // }));
-
-    // pipeline.addStage(new MemberAccountStage(this, 'Prod', {
-    //   env: {
-    //     account: '678826754533', // AWSBackup member account
-    //     region: 'eu-west-1',
-    //   },
-    // }));
-
-
-    // pipeline.addStage(new MemberAccountStage(this, 'Dev', {
-    //   env: {
-    //     account: '039676969010', // AWSBackup member account
-    //     region: 'eu-west-1',
-    //   },
-    // }));
 
     pipeline.addStage(new CentralAccountStage(this, 'Backup', {
       env: {

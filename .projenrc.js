@@ -15,6 +15,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     '@aws-cdk/aws-ssm',
     '@aws-cdk/aws-s3',
     '@aws-cdk/aws-lambda',
+    '@aws-cdk/aws-logs',
   ],
   context: {
     '@aws-cdk/core:newStyleStackSynthesis': true,
