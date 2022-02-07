@@ -186,6 +186,11 @@ def attach_policy(policy_id_list,policy_target_list):
     for policy_id in policy_id_list:
       for policyTarget in policy_target_list:
           try:
+            paginator = org_client.get_paginator('list_accounts')
+            page_iterator = paginator.paginate()
+            for page in page_iterator:        
+                for acct in page['Accounts']:
+                    logger.info(f"Accounts: {acct}")
             #To avoid ConcurrentModificationException 
             time.sleep(int(5))
             logger.info(f"Attaching {policy_id} on Account {policyTarget}")

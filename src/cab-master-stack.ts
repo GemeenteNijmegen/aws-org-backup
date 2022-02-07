@@ -1,20 +1,21 @@
 //import * as custom from '@aws-cdk/custom-resources';
 import * as iam from '@aws-cdk/aws-iam';
 import * as lambda from '@aws-cdk/aws-lambda';
-import * as ssm from '@aws-cdk/aws-ssm';
-import * as core from '@aws-cdk/core';
 //import * as logs from '@aws-cdk/aws-logs';
+//import * as ssm from '@aws-cdk/aws-ssm';
+import * as core from '@aws-cdk/core';
+//import * as custom from '@aws-cdk/custom-resources';
 import { statics } from './statics';
 
 export class CabMasterStack extends core.Stack {
   constructor(scope: core.Construct, id: string) {
     super(scope, id);
 
-    new ssm.StringParameter(this, 'cab-member-role-ssmparameter', {
-      description: 'Role name of AWS Backup role deployed to all member accounts',
-      parameterName: 'ARNTest',
-      stringValue: `arn:aws:backup:${core.Aws.REGION}:${statics.cab_backupAccount}:backup-vault:${statics.cab_centralVaultName}`,
-    });
+    // new ssm.StringParameter(this, 'cab-member-role-ssmparameter', {
+    //   description: 'Role name of AWS Backup role deployed to all member accounts',
+    //   parameterName: 'ARNTest',
+    //   stringValue: `arn:aws:backup:${core.Aws.REGION}:${statics.cab_backupAccount}:backup-vault:${statics.cab_centralVaultName}`,
+    // });
 
     const lambdaFunction = new lambda.Function(this, 'OrgPolicyCustomResourceManager', {
       code: lambda.Code.fromAsset('./src/lambda'),
@@ -37,41 +38,33 @@ export class CabMasterStack extends core.Stack {
         'organizations:UpdatePolicy',
         'organizations:DescribePolicy',
         'organizations:ListTargetsForPolicy',
+        'organizations:ListAccounts',
       ],
       resources: ['*'],
     }));
 
-    var memberAccounts= '';
-
+    var memberAccounts= [];
     for (var _i = 0; _i < statics.cab_memberAccount.length; _i+=2) {
-      memberAccounts += `${statics.cab_memberAccount[_i+1]},`;
+      memberAccounts.push(statics.cab_memberAccount[_i+1]);
     }
 
-    // const customResourceProvider = new custom.Provider(this, 'provider', {
-    //   onEventHandler: lambdaFunction,
-    //   logRetention: logs.RetentionDays.ONE_MONTH,
-    // });
+    // var memberAccounts= '';
+    // for (var _i = 0; _i < statics.cab_memberAccount.length; _i+=2) {
+    //   memberAccounts += `${statics.cab_memberAccount[_i+1]},`;
+    // }
 
-    new core.CustomResource(this, 'BackupPolicy', {
+    new core.CustomResource(this, 'AWSBackupPolicy', {
       serviceToken: lambdaFunction.functionArn,
-      resourceType: 'Custom::OrgPolicy',
+      resourceType: 'Custom::OrgBackupPolicy',
       properties: {
         PolicyPrefix: 'cdk-backup-policy',
         PolicyType: 'BACKUP_POLICY',
         PolicyTargets: memberAccounts,
         PolicyDescription: 'BackupPolicy for Daily Backup as per the resource selection criteria',
-        Variables: `BACKUP_ROLE: ${statics.cab_iamRoleName},
-                    VAULT_NAME: ${statics.cab_memberVaultName},
-                    TAG_KEY : BackupPlan,
-                    TAG_VALUE_1 : VSS Backup,
-                    TAG_VALUE_2 : STD Backup,
-                    SCHEDULE_EXPRESSION_1 : cron(0 0/6 * * ? *),
-                    SCHEDULE_EXPRESSION_2 : cron(0 19 * * ? *),
-                    CENTRAL_VAULT_ARN : arn:aws:backup:${core.Aws.REGION}:${statics.cab_backupAccount}:backup-vault:${statics.cab_centralVaultName}`,
         PolicyContents: `[
                           {
                             "plans": {
-                                "VSS-Daily": {
+                                "CDK-VSS-Daily": {
                                     "regions": {
                                       "@@append":[ "us-east-1", "eu-central-1", "us-east-2", "us-west-2", "eu-west-1", "ap-southeast-1", "ap-southeast-2", "ca-central-1", "eu-north-1" ] },
                                     "rules": {
@@ -108,7 +101,7 @@ export class CabMasterStack extends core.Stack {
                                                 }
                                             }
                                         }
-                                      }                            
+                                      }
                                     },
                                     "selections": {
                                         "tags": {
@@ -139,7 +132,7 @@ export class CabMasterStack extends core.Stack {
                           },
                           {
                             "plans": {
-                                "GEN-Daily": {
+                                "CDK-GEN-Daily": {
                                     "regions": {
                                       "@@append":[ "us-east-1", "eu-central-1", "us-east-2", "us-west-2", "eu-west-1", "ap-southeast-1", "ap-southeast-2", "ca-central-1", "eu-north-1" ] },
                                     "rules": {
@@ -176,7 +169,7 @@ export class CabMasterStack extends core.Stack {
                                                 }
                                             }
                                         }
-                                      }                            
+                                      }
                                     },
                                     "selections": {
                                         "tags": {
@@ -199,12 +192,16 @@ export class CabMasterStack extends core.Stack {
                             }
                           }
                         ]`,
-
-
-        // SecretId: this.cluster.secret?.secretArn,
-        // ParameterName: '/gemeentenijmegen/formio/database/endpoint-with-secret',
-        // ParameterDescription: 'FormIO Database Endpoint Url',
-        // ClusterEndpoint: this.cluster.clusterEndpoint.socketAddress,
+        Variables: [
+          { BACKUP_ROLE: `${statics.cab_iamRoleName}` },
+          { VAULT_NAME: `${statics.cab_memberVaultName}` },
+          { TAG_KEY: 'BackupPlan' },
+          { TAG_VALUE_1: 'VSS Backup' },
+          { TAG_VALUE_2: 'STD Backup' },
+          { SCHEDULE_EXPRESSION_1: 'cron(0 0/6 * * ? *)' },
+          { SCHEDULE_EXPRESSION_2: 'cron(0 19 * * ? *)' },
+          { CENTRAL_VAULT_ARN: `arn:aws:backup:${core.Aws.REGION}:${statics.cab_backupAccount}:backup-vault:${statics.cab_centralVaultName}` },
+        ],
       },
     });
 
