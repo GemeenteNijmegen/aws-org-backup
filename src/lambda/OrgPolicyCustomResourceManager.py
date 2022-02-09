@@ -37,6 +37,7 @@ def get_policy(event):
     policy_contents = ''
     if 'PolicyContents' in event['ResourceProperties']:
         policy_contents = event['ResourceProperties']['PolicyContents']
+        logger.info(f"Policy : {policy_contents}")
     else:
         s3_bucket = event['ResourceProperties']['PolicyBucket']
         s3_object = event['ResourceProperties']['PolicyLocation']
@@ -48,7 +49,7 @@ def get_policy(event):
     #Check for replacement variables
     if 'Variables' in event['ResourceProperties']:
         variables= event['ResourceProperties']['Variables']
-        logger.info(f"variables : {variables}")
+        logger.info(f"Variables : {variables}")
         for variable in variables:
             for key, value in variable.items():
               logger.info(f"Replacing Key : {key} with value : {value}")
@@ -186,11 +187,11 @@ def attach_policy(policy_id_list,policy_target_list):
     for policy_id in policy_id_list:
       for policyTarget in policy_target_list:
           try:
-            paginator = org_client.get_paginator('list_accounts')
-            page_iterator = paginator.paginate()
-            for page in page_iterator:        
-                for acct in page['Accounts']:
-                    logger.info(f"Accounts: {acct}")
+            # paginator = org_client.get_paginator('list_accounts')
+            # page_iterator = paginator.paginate()
+            # for page in page_iterator:        
+            #     for acct in page['Accounts']:
+            #         logger.info(f"Accounts: {acct}")
             #To avoid ConcurrentModificationException 
             time.sleep(int(5))
             logger.info(f"Attaching {policy_id} on Account {policyTarget}")
