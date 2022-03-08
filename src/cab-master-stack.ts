@@ -42,11 +42,11 @@ export class CabMasterStack extends core.Stack {
     var backupPolicy = `[
       {
           "plans": {
-              "VSS-Daily": {
+              "Vss-Daily": {
                   "regions": {
                     "@@append":[ "us-east-1", "eu-central-1", "us-east-2", "us-west-2", "eu-west-1", "ap-southeast-1", "ap-southeast-2", "ca-central-1", "eu-north-1" ] },
                   "rules": {
-                      "VSS-DailyRule": {
+                      "Vss-DailyRule": {
                           "schedule_expression": {
                               "@@assign": "SCHEDULE_EXPRESSION_1"
                           },
@@ -83,7 +83,7 @@ export class CabMasterStack extends core.Stack {
                   },
                   "selections": {
                       "tags": {
-                          "VSS-DailySelection": {
+                          "Vss-DailySelection": {
                               "iam_role_arn": {
                                   "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE"
                               },
@@ -97,17 +97,24 @@ export class CabMasterStack extends core.Stack {
                               }
                           }
                       }
+                  },
+                  "advanced_backup_settings": {
+                    "ec2": {
+                        "windows_vss": {
+                            "@@assign": "enabled"
+                        }
+                    }
                   }
               }
           }
       },
       {
           "plans": {
-              "GEN-Daily": {
+              "Std-Daily": {
                   "regions": {
                     "@@append":[ "us-east-1", "eu-central-1", "us-east-2", "us-west-2", "eu-west-1", "ap-southeast-1", "ap-southeast-2", "ca-central-1", "eu-north-1" ] },
                   "rules": {
-                      "GEN-DailyRule": {
+                      "Std-DailyRule": {
                           "schedule_expression": {
                               "@@assign": "SCHEDULE_EXPRESSION_2"
                           },
@@ -144,7 +151,7 @@ export class CabMasterStack extends core.Stack {
                   },
                   "selections": {
                       "tags": {
-                          "GEN-DailySelection": {
+                          "Std-DailySelection": {
                               "iam_role_arn": {
                                   "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE"
                               },
@@ -168,7 +175,7 @@ export class CabMasterStack extends core.Stack {
       serviceToken: lambdaFunction.functionArn,
       resourceType: 'Custom::OrgBackupPolicy',
       properties: {
-        PolicyPrefix: 'cdk-backup-policy',
+        PolicyPrefix: 'oblcc-backup-policy',
         PolicyType: 'BACKUP_POLICY',
         PolicyTargets: memberAccounts,
         PolicyDescription: 'BackupPolicy for Daily Backup as per the resource selection criteria',
@@ -177,10 +184,10 @@ export class CabMasterStack extends core.Stack {
           { BACKUP_ROLE: `${statics.cab_iamRoleName}` },
           { VAULT_NAME: `${statics.cab_memberVaultName}` },
           { TAG_KEY: 'BackupPlan' },
-          { TAG_VALUE_1: 'VSS Backup' },
-          { TAG_VALUE_2: 'STD Backup' },
-          { SCHEDULE_EXPRESSION_1: 'cron(0 0/6 * * ? *)' },
-          { SCHEDULE_EXPRESSION_2: 'cron(0 19 * * ? *)' },
+          { TAG_VALUE_1: 'Vss-24h' },
+          { TAG_VALUE_2: 'Std-24h' },
+          { SCHEDULE_EXPRESSION_1: 'cron(0 3 * * ? *)' },
+          { SCHEDULE_EXPRESSION_2: 'cron(0 3 * * ? *)' },
           { CENTRAL_VAULT_ARN: `arn:aws:backup:${core.Aws.REGION}:${statics.cab_backupAccount}:backup-vault:${statics.cab_centralVaultName}` },
         ],
       },
