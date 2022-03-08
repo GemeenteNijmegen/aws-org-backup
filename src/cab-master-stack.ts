@@ -11,7 +11,7 @@ export class CabMasterStack extends core.Stack {
       code: lambda.Code.fromAsset('./src/lambda'),
       handler: 'OrgPolicyCustomResourceManager.lambda_handler',
       runtime: lambda.Runtime.PYTHON_3_8,
-      timeout: core.Duration.seconds(300)
+      timeout: core.Duration.seconds(300),
     });
 
     lambdaFunction.addToRolePolicy(new iam.PolicyStatement({

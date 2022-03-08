@@ -10,12 +10,14 @@ export class statics {
   static readonly cab_orgId: string = 'o-lk7av3vrsd';
 
   //static variables for vault names
-  static readonly cab_centralVaultName: string = 'cdk-cabackup-central-vault';
-  static readonly cab_memberVaultName: string = 'cdk-cabackup-member-vault';
+  static readonly cab_centralVaultName: string = 'cabackup-central-vault';
+  static readonly cab_memberVaultName: string = 'cabackup-member-vault';
 
   //static variables for account id's
   static readonly cab_orgsAccount: string = '267098846992';
   static readonly cab_backupAccount: string = '138114602286';
+
+  //static variables for member account id's. Note!! no spaces in name
   static readonly cab_memberAccount = [
     'Production', '678826754533',
     'Development', '039676969010',

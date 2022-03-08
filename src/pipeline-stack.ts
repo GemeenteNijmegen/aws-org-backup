@@ -59,22 +59,22 @@ export class PipelineStack extends core.Stack {
     for (var _i = 0; _i < statics.cab_memberAccount.length; _i+=2) {
       pipeline.addStage(new MemberAccountStage(this, statics.cab_memberAccount[_i], {
         env: {
-          account: statics.cab_memberAccount[_i+1], // AWSBackup member account
+          account: statics.cab_memberAccount[_i+1], // AWSBackup Member Accounts
           region: 'eu-west-1',
         },
       }));
     }
 
-    pipeline.addStage(new CentralAccountStage(this, 'Backup', {
+    pipeline.addStage(new CentralAccountStage(this, 'CentralBackup', {
       env: {
-        account: statics.cab_backupAccount, // AWSBackup central account
+        account: statics.cab_backupAccount, // AWSBackup Central Backup Account
         region: 'eu-west-1',
       },
     }));
 
-    pipeline.addStage(new OrgAccountStage(this, 'Master', {
+    pipeline.addStage(new OrgAccountStage(this, 'Organizations', {
       env: {
-        account: statics.cab_orgsAccount, // oblcc organizations account
+        account: statics.cab_orgsAccount, // Organizations Account
         region: 'eu-west-1',
       },
     }));
