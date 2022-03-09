@@ -51,10 +51,10 @@ export class CabMasterStack extends core.Stack {
                               "@@assign": "SCHEDULE_EXPRESSION_1"
                           },
                           "start_backup_window_minutes": {
-                              "@@assign": "480"
+                              "@@assign": "60"
                           },
                           "complete_backup_window_minutes": {
-                              "@@assign": "720"
+                              "@@assign": "240"
                           },
                           "lifecycle": {
                               "delete_after_days": {
@@ -119,10 +119,10 @@ export class CabMasterStack extends core.Stack {
                               "@@assign": "SCHEDULE_EXPRESSION_2"
                           },
                           "start_backup_window_minutes": {
-                              "@@assign": "480"
+                              "@@assign": "60"
                           },
                           "complete_backup_window_minutes": {
-                              "@@assign": "720"
+                              "@@assign": "240"
                           },
                           "lifecycle": {
                               "delete_after_days": {
@@ -165,6 +165,13 @@ export class CabMasterStack extends core.Stack {
                               }
                           }
                       }
+                  },
+                  "advanced_backup_settings": {
+                    "ec2": {
+                        "windows_vss": {
+                            "@@assign": "disabled"
+                        }
+                    }
                   }
               }
           }
@@ -186,8 +193,8 @@ export class CabMasterStack extends core.Stack {
           { TAG_KEY: 'BackupPlan' },
           { TAG_VALUE_1: 'Vss-24h' },
           { TAG_VALUE_2: 'Std-24h' },
-          { SCHEDULE_EXPRESSION_1: 'cron(15 12 * * ? *)' },
-          { SCHEDULE_EXPRESSION_2: 'cron(15 12 * * ? *)' },
+          { SCHEDULE_EXPRESSION_1: 'cron(0 3 * * ? *)' },
+          { SCHEDULE_EXPRESSION_2: 'cron(0 3 * * ? *)' },
           { CENTRAL_VAULT_ARN: `arn:aws:backup:${core.Aws.REGION}:${statics.cab_backupAccount}:backup-vault:${statics.cab_centralVaultName}` },
         ],
       },
