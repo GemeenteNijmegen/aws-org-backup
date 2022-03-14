@@ -40,11 +40,11 @@ export class PipelineStack extends core.Stack {
     super(scope, id, props);
 
     const repository = new codecommit.Repository(this, 'repository', {
-      repositoryName: 'oblcc-org-backup',
+      repositoryName: 'aws-org-backup',
     });
 
     const pipeline = new pipelines.CodePipeline(this, 'pipeline', {
-      pipelineName: 'oblcc-org-backup-pipeline',
+      pipelineName: 'aws-org-backup-pipeline',
       crossAccountKeys: true,
       synth: new pipelines.ShellStep('Synth', {
         input: pipelines.CodePipelineSource.codeCommit(repository, 'main'),
