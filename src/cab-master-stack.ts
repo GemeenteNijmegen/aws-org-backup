@@ -1,3 +1,4 @@
+import { readFileSync } from 'fs';
 import * as iam from '@aws-cdk/aws-iam';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as core from '@aws-cdk/core';
@@ -39,144 +40,8 @@ export class CabMasterStack extends core.Stack {
       memberAccounts.push(statics.cab_memberAccount[_i+1]);
     }
 
-    var backupPolicy = `[
-      {
-          "plans": {
-              "Vss-Daily": {
-                  "regions": {
-                    "@@append":[ "us-east-1", "eu-central-1", "us-east-2", "us-west-2", "eu-west-1", "ap-southeast-1", "ap-southeast-2", "ca-central-1", "eu-north-1" ] },
-                  "rules": {
-                      "Vss-DailyRule": {
-                          "schedule_expression": {
-                              "@@assign": "SCHEDULE_EXPRESSION_1"
-                          },
-                          "start_backup_window_minutes": {
-                              "@@assign": "60"
-                          },
-                          "complete_backup_window_minutes": {
-                              "@@assign": "240"
-                          },
-                          "lifecycle": {
-                              "delete_after_days": {
-                                  "@@assign": "5"
-                              }
-                          },
-                          "target_backup_vault_name": {
-                              "@@assign": "VAULT_NAME"
-                          },
-                          "copy_actions": {
-                            "CENTRAL_VAULT_ARN": {
-                              "target_backup_vault_arn": {
-                                "@@assign": "CENTRAL_VAULT_ARN"
-                              },
-                              "lifecycle": {
-                                "move_to_cold_storage_after_days": {
-                                  "@@assign": "30"
-                                },
-                                "delete_after_days": {
-                                  "@@assign": "365"
-                                }
-                              }
-                          }
-                      }
-                    }                            
-                  },
-                  "selections": {
-                      "tags": {
-                          "Vss-DailySelection": {
-                              "iam_role_arn": {
-                                  "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE"
-                              },
-                              "tag_key": {
-                                  "@@assign": "TAG_KEY"
-                              },
-                              "tag_value": {
-                                  "@@assign": [
-                                      "TAG_VALUE_1"
-                                  ]
-                              }
-                          }
-                      }
-                  },
-                  "advanced_backup_settings": {
-                    "ec2": {
-                        "windows_vss": {
-                            "@@assign": "enabled"
-                        }
-                    }
-                  }
-              }
-          }
-      },
-      {
-          "plans": {
-              "Std-Daily": {
-                  "regions": {
-                    "@@append":[ "us-east-1", "eu-central-1", "us-east-2", "us-west-2", "eu-west-1", "ap-southeast-1", "ap-southeast-2", "ca-central-1", "eu-north-1" ] },
-                  "rules": {
-                      "Std-DailyRule": {
-                          "schedule_expression": {
-                              "@@assign": "SCHEDULE_EXPRESSION_2"
-                          },
-                          "start_backup_window_minutes": {
-                              "@@assign": "60"
-                          },
-                          "complete_backup_window_minutes": {
-                              "@@assign": "240"
-                          },
-                          "lifecycle": {
-                              "delete_after_days": {
-                                  "@@assign": "5"
-                              }
-                          },
-                          "target_backup_vault_name": {
-                              "@@assign": "VAULT_NAME"
-                          },
-                          "copy_actions": {
-                            "CENTRAL_VAULT_ARN": {
-                              "target_backup_vault_arn": {
-                                "@@assign": "CENTRAL_VAULT_ARN"
-                              },
-                              "lifecycle": {
-                                "move_to_cold_storage_after_days": {
-                                  "@@assign": "30"
-                                },
-                                "delete_after_days": {
-                                  "@@assign": "365"
-                                }
-                              }
-                          }
-                      }
-                    }                            
-                  },
-                  "selections": {
-                      "tags": {
-                          "Std-DailySelection": {
-                              "iam_role_arn": {
-                                  "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE"
-                              },
-                              "tag_key": {
-                                  "@@assign": "TAG_KEY"
-                              },
-                              "tag_value": {
-                                  "@@assign": [
-                                      "TAG_VALUE_2"
-                                  ]
-                              }
-                          }
-                      }
-                  },
-                  "advanced_backup_settings": {
-                    "ec2": {
-                        "windows_vss": {
-                            "@@assign": "disabled"
-                        }
-                    }
-                  }
-              }
-          }
-      }
-    ]`;
+    //const backupPolicy = require('./src/json/backupPolicy.json');
+    const backupPolicy = readFileSync('./src/json/backupPolicy.json', 'utf8');
 
     new core.CustomResource(this, 'AWSBackupPolicy', {
       serviceToken: lambdaFunction.functionArn,
@@ -191,10 +56,12 @@ export class CabMasterStack extends core.Stack {
           { BACKUP_ROLE: `${statics.cab_iamRoleName}` },
           { VAULT_NAME: `${statics.cab_memberVaultName}` },
           { TAG_KEY: 'BackupPlan' },
-          { TAG_VALUE_1: 'Vss-24h' },
-          { TAG_VALUE_2: 'Std-24h' },
-          { SCHEDULE_EXPRESSION_1: 'cron(0 3 * * ? *)' },
-          { SCHEDULE_EXPRESSION_2: 'cron(0 3 * * ? *)' },
+          { TAG_VALUE_1: 'Vss-Central' },
+          { TAG_VALUE_2: 'Vss-Local' },
+          { TAG_VALUE_3: 'Std-Central' },
+          { TAG_VALUE_4: 'Std-Local' },
+          { SCHEDULE_EXPRESSION_DAILY: 'cron(0 3 * * *)' },
+          { SCHEDULE_EXPRESSION_MONTHLY: 'cron(0 3 1 * *)' },
           { CENTRAL_VAULT_ARN: `arn:aws:backup:${core.Aws.REGION}:${statics.cab_backupAccount}:backup-vault:${statics.cab_centralVaultName}` },
         ],
       },
