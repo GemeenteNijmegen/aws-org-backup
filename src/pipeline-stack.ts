@@ -56,11 +56,11 @@ export class PipelineStack extends core.Stack {
       }),
     });
 
-    for (var _i = 0; _i < statics.cab_memberAccount.length; _i+=2) {
+    for (var _i = 0; _i < statics.cab_memberAccount.length; _i+=3) {
       pipeline.addStage(new MemberAccountStage(this, statics.cab_memberAccount[_i], {
         env: {
           account: statics.cab_memberAccount[_i+1], // AWSBackup Member Accounts
-          region: 'eu-west-1',
+          region: statics.cab_memberAccount[_i+2], // Region for Local Vault
         },
       }));
     }
