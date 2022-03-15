@@ -28,7 +28,7 @@
                     "Vss-Selection": {
                         "iam_role_arn": { "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE" },
                         "tag_key": { "@@assign": "TAG_KEY" },
-                        "tag_value": { "@@assign": [ "TAG_VALUE_2" ] }
+                        "tag_value": { "@@assign": [ "TAG_VALUE_1" ] }
                     }
                 }
             },
@@ -69,7 +69,7 @@
                     "Vss-Selection": {
                         "iam_role_arn": { "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE" },
                         "tag_key": { "@@assign": "TAG_KEY" },
-                        "tag_value": { "@@assign": [ "TAG_VALUE_1" ] }
+                        "tag_value": { "@@assign": [ "TAG_VALUE_2" ] }
                     }
                 }
             },
@@ -110,7 +110,7 @@
                     "Std-Selection": {
                         "iam_role_arn": { "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE" },
                         "tag_key": { "@@assign": "TAG_KEY" },
-                        "tag_value": { "@@assign": [ "TAG_VALUE_4" ] }
+                        "tag_value": { "@@assign": [ "TAG_VALUE_3" ] }
                     }
                 }
             },
@@ -151,7 +151,7 @@
                     "Std-Selection": {
                         "iam_role_arn": { "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE" },
                         "tag_key": { "@@assign": "TAG_KEY" },
-                        "tag_value": { "@@assign": [ "TAG_VALUE_3" ] }
+                        "tag_value": { "@@assign": [ "TAG_VALUE_4" ] }
                     }
                 }
             },

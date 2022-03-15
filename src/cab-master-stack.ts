@@ -42,6 +42,15 @@ export class CabMasterStack extends core.Stack {
 
     const backupPolicy = readFileSync('./src/json/backupPolicy.json', 'utf8');
 
+    // LOCAL VAULT BACKUPS (no cross account copy)
+    //    Local Daily retention:           35 days
+    //    Local Monthly Retention:         365 days
+
+    // CENTRAL VAULT BACKUPS
+    //    Local Daily retention:           5 days
+    //    Central Daily retention:         30 days
+    //    Central Cold Storage Retention:  365 days
+
     new core.CustomResource(this, 'AWSBackupPolicy', {
       serviceToken: lambdaFunction.functionArn,
       resourceType: 'Custom::OrgBackupPolicy',
@@ -55,10 +64,10 @@ export class CabMasterStack extends core.Stack {
           { BACKUP_ROLE: `${statics.cab_iamRoleName}` },
           { VAULT_NAME: `${statics.cab_memberVaultName}` },
           { TAG_KEY: 'BackupPlan' },
-          { TAG_VALUE_1: 'Vss-Central' },
-          { TAG_VALUE_2: 'Vss-Local' },
-          { TAG_VALUE_3: 'Std-Central' },
-          { TAG_VALUE_4: 'Std-Local' },
+          { TAG_VALUE_1: 'Vss-Local-24h' },
+          { TAG_VALUE_2: 'Vss-Central-24h' },
+          { TAG_VALUE_3: 'Std-Local-24h' },
+          { TAG_VALUE_4: 'Std-Central-24h' },
           { SCHEDULE_EXPRESSION_DAILY: 'cron(0 3 * * ? *)' },
           { SCHEDULE_EXPRESSION_MONTHLY: 'cron(0 3 1 * ? *)' },
           { CENTRAL_VAULT_ARN: `arn:aws:backup:${core.Aws.REGION}:${statics.cab_backupAccount}:backup-vault:${statics.cab_centralVaultName}` },
