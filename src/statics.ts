@@ -17,7 +17,7 @@ export class statics {
   static readonly cab_orgsAccount: string = '267098846992';
   static readonly cab_backupAccount: string = '138114602286';
 
-  //static variables for member account id's. Note!! no spaces in name
+  //static variable (array) for member accounts. Note!! no spaces in name
   static readonly cab_memberAccount = [
     'Production', '678826754533', 'eu-west-1',
     'Development', '039676969010', 'eu-west-1',

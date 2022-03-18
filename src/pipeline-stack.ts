@@ -66,14 +66,17 @@ export class PipelineStack extends core.Stack {
       }),
     });
 
+    /*--------------------------------------------------------------------------------------------------
+      - Create Vault and IAM Role in all member accounts
+      - Prevent creating IAM role in other regions if the role already exists within an account by
+        checking if account ID exists more than once
+    --------------------------------------------------------------------------------------------------*/
+
     var iteratedAccounts =[];
 
     function detectRepeatedAccount(array: any[], what: string) {
       return array.filter(item => item == what).length;
     }
-
-    // Create Vault and IAM Role in all member accounts
-    // Prevent creating IAM role in other regions if the role already exists within an account
 
     for (var _i = 0; _i < statics.cab_memberAccount.length; _i+=3) {
       
@@ -90,7 +93,9 @@ export class PipelineStack extends core.Stack {
       console.log('Account ID, Region: '+ statics.cab_memberAccount[_i+1] + ', ' + statics.cab_memberAccount[_i+2] +'\tGets IAM Role: ' + detectRepeatedAccount(iteratedAccounts,statics.cab_memberAccount[_i+1]));
       }
 
-    // Create Vault and IAM Role in all central backup account
+    /*--------------------------------------------------------------------------------------------------
+      - Create Vault and IAM Role in all central backup account
+    --------------------------------------------------------------------------------------------------*/
 
     pipeline.addStage(new CentralAccountStage(this, 'CentralBackup', {
       env: {
@@ -99,7 +104,9 @@ export class PipelineStack extends core.Stack {
       },
     }));
 
-    // Deploy Backup Policy to organizations account, using lambda to push policy to member accounts
+    /*--------------------------------------------------------------------------------------------------
+      - Deploy Backup Policy to organizations account, using lambda to push policy to member accounts
+    --------------------------------------------------------------------------------------------------*/
 
     pipeline.addStage(new OrgAccountStage(this, 'Organizations', {
       env: {
