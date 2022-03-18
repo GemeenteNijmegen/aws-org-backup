@@ -16,42 +16,5 @@ export class CabIamRole extends core.Stack {
       roleName: statics.cab_iamRoleName,
     });
 
-    // new ssm.StringParameter(this,'cab-member-role-ssmparameter',{
-    //   description: 'Role name of AWS Backup role deployed to all member accounts',
-    //   parameterName: '/gemeentenijmegen/aws-backup/cab-member-role',
-    //   stringValue: cabMemberRole.roleName,
-    // });
-
-    // cabrole.addToPolicy(new iam.PolicyStatement({
-    //   actions: ['sts:AssumeRole'],
-    // }));
-
-    // new s3.Bucket(this, 'Mybucket')
-
-    // new core.CfnStackSet(this, 'StackSet', {
-    //   stackSetName: 'Sander-test',
-    //   permissionModel: 'SERVICE_MANAGED',
-    //   autoDeployment: {
-    //     enabled: true,
-    //     retainStacksOnAccountRemoval: false,
-    //   },
-    //   stackInstancesGroup: [
-    //     {
-    //       regions: ['eu-west-1'],
-    //       deploymentTargets: {
-    //         organizationalUnitIds: ['ou-mbm8-xzrssyfm'],
-    //       },
-    //     },
-    //   ],
-    //   templateBody: `
-    //     Resources:
-    //       Topic:
-    //         Type: AWS::SNS::Topic
-    //         Properties:
-    //           TopicName: Events
-    //   `,
-    // });
-
-
   }
 }
