@@ -20,8 +20,8 @@ export class statics {
   //static variables for member account id's. Note!! no spaces in name
   static readonly cab_memberAccount = [
     'Production', '678826754533', 'eu-west-1',
-    'Development', '039676969010', 'us-east-1',
-    'DevelopmentUS', '039676969010', 'eu-west-1',
+    'Development', '039676969010', 'eu-west-1',
+    'DevelopmentUS', '039676969010', 'us-east-1',
   ];
 
 }
