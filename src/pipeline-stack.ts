@@ -16,10 +16,9 @@ class MemberAccountStage extends core.Stage {
     super(scope, id, props);
 
     if (props.activeRegions > 1) {
-      //dont create IAM role if the role already exists for an account in another region
+      //dont create IAM role if resources are being deployed to multiple regions within an account
       new CabMemberStack(this, 'CabMemberStack');
-    }
-    else {
+    } else {
       const cabIamRole = new CabIamRole(this, 'CabIamRole');
       const cabMemberStack = new CabMemberStack(this, 'CabMemberStack');
       cabMemberStack.addDependency(cabIamRole);
@@ -69,7 +68,7 @@ export class PipelineStack extends core.Stack {
     /*--------------------------------------------------------------------------------------------------
       - Create Vault and IAM Role in all member accounts
       - Prevent creating IAM role in other regions if the role already exists within an account by
-        checking if account ID exists more than once
+        checking if account ID exists more than once in the cab_memberAccount array
     --------------------------------------------------------------------------------------------------*/
 
     var iteratedAccounts =[];
@@ -79,22 +78,23 @@ export class PipelineStack extends core.Stack {
     }
 
     for (var _i = 0; _i < statics.cab_memberAccount.length; _i+=3) {
-      
+
       iteratedAccounts.push(statics.cab_memberAccount[_i+1]);
-            
+
       pipeline.addStage(new MemberAccountStage(this, statics.cab_memberAccount[_i], {
         env: {
           account: statics.cab_memberAccount[_i+1], // AWSBackup Member Accounts
           region: statics.cab_memberAccount[_i+2], // Region for Local Vault
         },
-        activeRegions: detectRepeatedAccount(iteratedAccounts,statics.cab_memberAccount[_i+1]),
-        
+        activeRegions: detectRepeatedAccount(iteratedAccounts, statics.cab_memberAccount[_i+1]),
+
       }));
-      console.log('Account ID, Region: '+ statics.cab_memberAccount[_i+1] + ', ' + statics.cab_memberAccount[_i+2] +'\tGets IAM Role: ' + detectRepeatedAccount(iteratedAccounts,statics.cab_memberAccount[_i+1]));
-      }
+      // Test to confirm which accounts / regions get the IAM role - use synth to check console output.
+      console.log('Account ID, Region: '+ statics.cab_memberAccount[_i+1] + ', ' + statics.cab_memberAccount[_i+2] +'\tGets IAM Role: ' + (detectRepeatedAccount(iteratedAccounts,statics.cab_memberAccount[_i+1]) > 1 ? "No" : "Yes"));
+    }
 
     /*--------------------------------------------------------------------------------------------------
-      - Create Vault and IAM Role in all central backup account
+      - Create Vault and IAM Role in central backup account
     --------------------------------------------------------------------------------------------------*/
 
     pipeline.addStage(new CentralAccountStage(this, 'CentralBackup', {

@@ -1,6 +1,6 @@
 const { awscdk } = require('projen');
 const project = new awscdk.AwsCdkTypeScriptApp({
-  cdkVersion: '1.134.0',
+  cdkVersion: '1.149.0',
   defaultReleaseBranch: 'main',
   name: 'oblcc-ca-backup',
 
