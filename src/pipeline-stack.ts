@@ -90,7 +90,7 @@ export class PipelineStack extends core.Stack {
 
       }));
       // Test to confirm which accounts / regions get the IAM role - use synth to check console output.
-      console.log('Account ID, Region: '+ statics.cab_memberAccount[_i+1] + ', ' + statics.cab_memberAccount[_i+2] +'\tGets IAM Role: ' + (detectRepeatedAccount(iteratedAccounts,statics.cab_memberAccount[_i+1]) > 1 ? "No" : "Yes"));
+      console.log('Account ID, Region: '+ statics.cab_memberAccount[_i+1] + ', ' + statics.cab_memberAccount[_i+2] +'\tGets IAM Role: ' + (detectRepeatedAccount(iteratedAccounts, statics.cab_memberAccount[_i+1]) > 1 ? 'No' : 'Yes'));
     }
 
     /*--------------------------------------------------------------------------------------------------
