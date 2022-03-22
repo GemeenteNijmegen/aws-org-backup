@@ -7,7 +7,7 @@ export class statics {
   static readonly cab_iamRoleName: string = 'cabackup-role';
 
   //static variables for organization id
-  static readonly cab_orgId: string = 'o-lk7av3vrsd';
+  static readonly cab_orgId: string = 'o-q39c35cgfr'; // gemeentenijmegen-master org ID
 
   /*--------------------------------------------------------------------------------------------------
     cab_centralVaultName: local vault name for central backup account
@@ -21,14 +21,15 @@ export class statics {
     cab_orgsAccount: organizations account
     cab_backupAccount: central backup account, for storing backup copies
   --------------------------------------------------------------------------------------------------*/
-  static readonly cab_deploymentAccount: string = '352485002162';
-  static readonly cab_orgsAccount: string = '267098846992';
-  static readonly cab_backupAccount: string = '138114602286';
+  static readonly cab_deploymentAccount: string = '418648875085'; // gemeentenijmegen-deployment
+  static readonly cab_orgsAccount: string = '449657715968'; // gemeentenijmegen-master
+  static readonly cab_backupAccount: string = '943060227071'; // gemeentenijmegen-backup
 
   //static variable (array) for member accounts. Note!! no spaces in name
   static readonly cab_memberAccount = [
-    'Production', '678826754533', 'eu-west-1',
-    'Development', '039676969010', 'eu-west-1',
-    'DevelopmentUS', '039676969010', 'us-east-1',
+    'gemeentenijmegen-auth-accp', '315037222840', 'eu-west-1',
+    'gemeentenijmegen-auth-accp-us', '315037222840', 'us-east-1',
+    'gemeentenijmegen-auth-prod', '196212984627', 'eu-west-1',
+    'gemeentenijmegen-auth-prod-us', '196212984627', 'us-east-1',
   ];
 }

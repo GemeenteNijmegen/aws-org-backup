@@ -94,10 +94,10 @@ export class PipelineStack extends core.Stack {
     }
 
     /*--------------------------------------------------------------------------------------------------
-      - Create Vault and IAM Role in central backup account
+      Create Vault and IAM Role in central backup account
     --------------------------------------------------------------------------------------------------*/
 
-    pipeline.addStage(new CentralAccountStage(this, 'CentralBackup', {
+    pipeline.addStage(new CentralAccountStage(this, 'central-backup-account', {
       env: {
         account: statics.cab_backupAccount, // AWSBackup Central Backup Account
         region: 'eu-west-1',
@@ -105,10 +105,10 @@ export class PipelineStack extends core.Stack {
     }));
 
     /*--------------------------------------------------------------------------------------------------
-      - Deploy Backup Policy to organizations account, using lambda to push policy to member accounts
+      Deploy Backup Policy to organizations account, using lambda to sync policy to member accounts
     --------------------------------------------------------------------------------------------------*/
 
-    pipeline.addStage(new OrgAccountStage(this, 'Organizations', {
+    pipeline.addStage(new OrgAccountStage(this, 'organizations-account', {
       env: {
         account: statics.cab_orgsAccount, // Organizations Account
         region: 'eu-west-1',

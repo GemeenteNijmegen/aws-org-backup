@@ -42,14 +42,16 @@ export class CabMasterStack extends core.Stack {
 
     const backupPolicy = readFileSync('./src/json/backupPolicy.json', 'utf8');
 
-    // LOCAL VAULT BACKUPS (no cross account copy)
-    //    Local Daily retention:           35 days
-    //    Local Monthly Retention:         365 days
+    /*--------------------------------------------------------------------------------------------------
+      LOCAL VAULT BACKUPS (no cross account copy)
+        Local Daily retention:           35 days
+        Local Monthly Retention:         365 days
 
-    // CENTRAL VAULT BACKUPS
-    //    Local Daily retention:           5 days
-    //    Central Daily retention:         30 days
-    //    Central Cold Storage Retention:  365 days
+      CENTRAL VAULT BACKUPS
+        Local Daily retention:           5 days
+        Central Daily retention:         30 days
+        Central Cold Storage Retention:  365 days
+    --------------------------------------------------------------------------------------------------*/
 
     new core.CustomResource(this, 'AWSBackupPolicy', {
       serviceToken: lambdaFunction.functionArn,

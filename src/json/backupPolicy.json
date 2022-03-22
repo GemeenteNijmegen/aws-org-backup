@@ -1,166 +1,166 @@
 [
-{
-    "plans": {
-        "Vss-Backup-Local": {
-            "regions": { "@@append":[ "us-east-1", "eu-central-1", "us-east-2", "us-west-2", "eu-west-1", "ap-southeast-1", "ap-southeast-2", "ca-central-1", "eu-north-1" ] },
-            "rules": {
-                "Vss-DailyRule": {
-                    "schedule_expression": { "@@assign": "SCHEDULE_EXPRESSION_DAILY" },
-                    "start_backup_window_minutes": { "@@assign": "60" },
-                    "complete_backup_window_minutes": { "@@assign": "240" },
-                    "lifecycle": {
-                        "delete_after_days": { "@@assign": "35" }
+    {
+        "plans": {
+            "Vss-Backup-Local": {
+                "regions": { "@@append":[ "us-east-1", "eu-west-1" ] },
+                "rules": {
+                    "Vss-DailyRule": {
+                        "schedule_expression": { "@@assign": "SCHEDULE_EXPRESSION_DAILY" },
+                        "start_backup_window_minutes": { "@@assign": "60" },
+                        "complete_backup_window_minutes": { "@@assign": "240" },
+                        "lifecycle": {
+                            "delete_after_days": { "@@assign": "35" }
+                        },
+                        "target_backup_vault_name": { "@@assign": "VAULT_NAME" }
                     },
-                    "target_backup_vault_name": { "@@assign": "VAULT_NAME" }
-                },
-                "Vss-MonthlyRule": {
-                    "schedule_expression": { "@@assign": "SCHEDULE_EXPRESSION_MONTHLY" },
-                    "start_backup_window_minutes": { "@@assign": "60" },
-                    "complete_backup_window_minutes": { "@@assign": "240" },
-                    "lifecycle": {
-                        "delete_after_days": { "@@assign": "365" }
-                    },
-                    "target_backup_vault_name": { "@@assign": "VAULT_NAME" }
-                }
-            },
-            "selections": {
-                "tags": {
-                    "Vss-Selection": {
-                        "iam_role_arn": { "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE" },
-                        "tag_key": { "@@assign": "TAG_KEY" },
-                        "tag_value": { "@@assign": [ "TAG_VALUE_1" ] }
+                    "Vss-MonthlyRule": {
+                        "schedule_expression": { "@@assign": "SCHEDULE_EXPRESSION_MONTHLY" },
+                        "start_backup_window_minutes": { "@@assign": "60" },
+                        "complete_backup_window_minutes": { "@@assign": "240" },
+                        "lifecycle": {
+                            "delete_after_days": { "@@assign": "365" }
+                        },
+                        "target_backup_vault_name": { "@@assign": "VAULT_NAME" }
                     }
-                }
-            },
-            "advanced_backup_settings": {
-                "ec2": {
-                    "windows_vss": { "@@assign": "enabled" }
-                }
-            }
-        }
-    }
-},
-{
-    "plans": {
-        "Vss-Backup-Central": {
-            "regions": { "@@append":[ "us-east-1", "eu-central-1", "us-east-2", "us-west-2", "eu-west-1", "ap-southeast-1", "ap-southeast-2", "ca-central-1", "eu-north-1" ] },
-            "rules": {
-                "Vss-DailyRule": {
-                    "schedule_expression": { "@@assign": "SCHEDULE_EXPRESSION_DAILY" },
-                    "start_backup_window_minutes": { "@@assign": "60" },
-                    "complete_backup_window_minutes": { "@@assign": "240" },
-                    "lifecycle": {
-                        "delete_after_days": { "@@assign": "5" }
-                    },
-                    "target_backup_vault_name": { "@@assign": "VAULT_NAME" },
-                    "copy_actions": {
-                        "CENTRAL_VAULT_ARN": {
-                            "target_backup_vault_arn": { "@@assign": "CENTRAL_VAULT_ARN" },
-                            "lifecycle": { 
-                                "move_to_cold_storage_after_days": { "@@assign": "30" },
-                                "delete_after_days": { "@@assign": "365" }
-                            }
+                },
+                "selections": {
+                    "tags": {
+                        "Vss-Selection": {
+                            "iam_role_arn": { "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE" },
+                            "tag_key": { "@@assign": "TAG_KEY" },
+                            "tag_value": { "@@assign": [ "TAG_VALUE_1" ] }
                         }
                     }
-                }                            
-            },
-            "selections": {
-                "tags": {
-                    "Vss-Selection": {
-                        "iam_role_arn": { "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE" },
-                        "tag_key": { "@@assign": "TAG_KEY" },
-                        "tag_value": { "@@assign": [ "TAG_VALUE_2" ] }
-                    }
-                }
-            },
-            "advanced_backup_settings": {
-                "ec2": {
-                    "windows_vss": { "@@assign": "enabled" }
-                }
-            }
-        }
-    }
-},
-{
-    "plans": {     
-        "Std-Backup-Local": {
-            "regions": { "@@append":[ "us-east-1", "eu-central-1", "us-east-2", "us-west-2", "eu-west-1", "ap-southeast-1", "ap-southeast-2", "ca-central-1", "eu-north-1" ] },
-            "rules": {
-                "Std-DailyRule": {
-                    "schedule_expression": { "@@assign": "SCHEDULE_EXPRESSION_DAILY" },
-                    "start_backup_window_minutes": { "@@assign": "60" },
-                    "complete_backup_window_minutes": { "@@assign": "240" },
-                    "lifecycle": {
-                        "delete_after_days": { "@@assign": "35" }
-                    },
-                    "target_backup_vault_name": { "@@assign": "VAULT_NAME" }
                 },
-                "Std-MonthlyRule": {
-                    "schedule_expression": { "@@assign": "SCHEDULE_EXPRESSION_MONTHLY" },
-                    "start_backup_window_minutes": { "@@assign": "60" },
-                    "complete_backup_window_minutes": { "@@assign": "240" },
-                    "lifecycle": {
-                        "delete_after_days": { "@@assign": "365" }
-                    },
-                    "target_backup_vault_name": { "@@assign": "VAULT_NAME" }
-                }
-            },
-            "selections": {
-                "tags": {
-                    "Std-Selection": {
-                        "iam_role_arn": { "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE" },
-                        "tag_key": { "@@assign": "TAG_KEY" },
-                        "tag_value": { "@@assign": [ "TAG_VALUE_3" ] }
+                "advanced_backup_settings": {
+                    "ec2": {
+                        "windows_vss": { "@@assign": "enabled" }
                     }
-                }
-            },
-            "advanced_backup_settings": {
-                "ec2": {
-                    "windows_vss": { "@@assign": "disabled" }
                 }
             }
         }
-    }
-},
-{
-    "plans": {        
-        "Std-Backup-Central": {
-            "regions": { "@@append":[ "us-east-1", "eu-central-1", "us-east-2", "us-west-2", "eu-west-1", "ap-southeast-1", "ap-southeast-2", "ca-central-1", "eu-north-1" ] },
-            "rules": {
-                "Std-DailyRule": {
-                    "schedule_expression": { "@@assign": "SCHEDULE_EXPRESSION_DAILY" },
-                    "start_backup_window_minutes": { "@@assign": "60" },
-                    "complete_backup_window_minutes": { "@@assign": "240" },
-                    "lifecycle": {
-                        "delete_after_days": { "@@assign": "5" }
-                    },
-                    "target_backup_vault_name": { "@@assign": "VAULT_NAME" },
-                    "copy_actions": {
-                        "CENTRAL_VAULT_ARN": {
-                            "target_backup_vault_arn": { "@@assign": "CENTRAL_VAULT_ARN" },
-                            "lifecycle": {
-                                "move_to_cold_storage_after_days": { "@@assign": "30" },
-                                "delete_after_days": { "@@assign": "365" }
+    },
+    {
+        "plans": {
+            "Vss-Backup-Central": {
+                "regions": { "@@append":[ "us-east-1", "eu-west-1" ] },
+                "rules": {
+                    "Vss-DailyRule": {
+                        "schedule_expression": { "@@assign": "SCHEDULE_EXPRESSION_DAILY" },
+                        "start_backup_window_minutes": { "@@assign": "60" },
+                        "complete_backup_window_minutes": { "@@assign": "240" },
+                        "lifecycle": {
+                            "delete_after_days": { "@@assign": "5" }
+                        },
+                        "target_backup_vault_name": { "@@assign": "VAULT_NAME" },
+                        "copy_actions": {
+                            "CENTRAL_VAULT_ARN": {
+                                "target_backup_vault_arn": { "@@assign": "CENTRAL_VAULT_ARN" },
+                                "lifecycle": { 
+                                    "move_to_cold_storage_after_days": { "@@assign": "30" },
+                                    "delete_after_days": { "@@assign": "365" }
+                                }
                             }
                         }
+                    }                            
+                },
+                "selections": {
+                    "tags": {
+                        "Vss-Selection": {
+                            "iam_role_arn": { "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE" },
+                            "tag_key": { "@@assign": "TAG_KEY" },
+                            "tag_value": { "@@assign": [ "TAG_VALUE_2" ] }
+                        }
                     }
-                }                            
-            },
-            "selections": {
-                "tags": {
-                    "Std-Selection": {
-                        "iam_role_arn": { "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE" },
-                        "tag_key": { "@@assign": "TAG_KEY" },
-                        "tag_value": { "@@assign": [ "TAG_VALUE_4" ] }
+                },
+                "advanced_backup_settings": {
+                    "ec2": {
+                        "windows_vss": { "@@assign": "enabled" }
                     }
                 }
-            },
-            "advanced_backup_settings": {
-                "ec2": {
-                    "windows_vss": { "@@assign": "disabled" }
+            }
+        }
+    },
+    {
+        "plans": {     
+            "Std-Backup-Local": {
+                "regions": { "@@append":[ "us-east-1", "eu-west-1" ] },
+                "rules": {
+                    "Std-DailyRule": {
+                        "schedule_expression": { "@@assign": "SCHEDULE_EXPRESSION_DAILY" },
+                        "start_backup_window_minutes": { "@@assign": "60" },
+                        "complete_backup_window_minutes": { "@@assign": "240" },
+                        "lifecycle": {
+                            "delete_after_days": { "@@assign": "35" }
+                        },
+                        "target_backup_vault_name": { "@@assign": "VAULT_NAME" }
+                    },
+                    "Std-MonthlyRule": {
+                        "schedule_expression": { "@@assign": "SCHEDULE_EXPRESSION_MONTHLY" },
+                        "start_backup_window_minutes": { "@@assign": "60" },
+                        "complete_backup_window_minutes": { "@@assign": "240" },
+                        "lifecycle": {
+                            "delete_after_days": { "@@assign": "365" }
+                        },
+                        "target_backup_vault_name": { "@@assign": "VAULT_NAME" }
+                    }
+                },
+                "selections": {
+                    "tags": {
+                        "Std-Selection": {
+                            "iam_role_arn": { "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE" },
+                            "tag_key": { "@@assign": "TAG_KEY" },
+                            "tag_value": { "@@assign": [ "TAG_VALUE_3" ] }
+                        }
+                    }
+                },
+                "advanced_backup_settings": {
+                    "ec2": {
+                        "windows_vss": { "@@assign": "disabled" }
+                    }
+                }
+            }
+        }
+    },
+    {
+        "plans": {        
+            "Std-Backup-Central": {
+                "regions": { "@@append":[ "us-east-1", "eu-west-1" ] },
+                "rules": {
+                    "Std-DailyRule": {
+                        "schedule_expression": { "@@assign": "SCHEDULE_EXPRESSION_DAILY" },
+                        "start_backup_window_minutes": { "@@assign": "60" },
+                        "complete_backup_window_minutes": { "@@assign": "240" },
+                        "lifecycle": {
+                            "delete_after_days": { "@@assign": "5" }
+                        },
+                        "target_backup_vault_name": { "@@assign": "VAULT_NAME" },
+                        "copy_actions": {
+                            "CENTRAL_VAULT_ARN": {
+                                "target_backup_vault_arn": { "@@assign": "CENTRAL_VAULT_ARN" },
+                                "lifecycle": {
+                                    "move_to_cold_storage_after_days": { "@@assign": "30" },
+                                    "delete_after_days": { "@@assign": "365" }
+                                }
+                            }
+                        }
+                    }                            
+                },
+                "selections": {
+                    "tags": {
+                        "Std-Selection": {
+                            "iam_role_arn": { "@@assign": "arn:aws:iam::$account:role/BACKUP_ROLE" },
+                            "tag_key": { "@@assign": "TAG_KEY" },
+                            "tag_value": { "@@assign": [ "TAG_VALUE_4" ] }
+                        }
+                    }
+                },
+                "advanced_backup_settings": {
+                    "ec2": {
+                        "windows_vss": { "@@assign": "disabled" }
+                    }
                 }
             }
         }
     }
-}
-]
+    ]
