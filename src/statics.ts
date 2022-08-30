@@ -25,6 +25,9 @@ export class statics {
   static readonly cab_orgsAccount: string = '449657715968'; // gemeentenijmegen-master
   static readonly cab_backupAccount: string = '943060227071'; // gemeentenijmegen-backup
 
+
+  static readonly codeStarConnectionArn: string = 'arn:aws:codestar-connections:eu-west-1:418648875085:connection/4f647929-c982-4f30-94f4-24ff7dbf9766';
+
   //static variable (array) for member accounts. Note!! no spaces in name
   static readonly cab_memberAccount = [
     'gemeentenijmegen-auth-accp', '315037222840', 'eu-west-1',

@@ -1,4 +1,3 @@
-import * as codecommit from '@aws-cdk/aws-codecommit';
 import * as core from '@aws-cdk/core';
 import * as pipelines from '@aws-cdk/pipelines';
 import { CabCentralStack } from './cab-central-stack';
@@ -48,15 +47,15 @@ export class PipelineStack extends core.Stack {
   constructor(scope: core.Construct, id: string, props: core.StageProps) {
     super(scope, id, props);
 
-    const repository = new codecommit.Repository(this, 'repository', {
-      repositoryName: 'aws-org-backup',
+    const repository = pipelines.CodePipelineSource.connection('GemeenteNijmegen/aws-org-backup', 'main', {
+      connectionArn: statics.codeStarConnectionArn,
     });
 
     const pipeline = new pipelines.CodePipeline(this, 'pipeline', {
       pipelineName: 'aws-org-backup-pipeline',
       crossAccountKeys: true,
       synth: new pipelines.ShellStep('Synth', {
-        input: pipelines.CodePipelineSource.codeCommit(repository, 'main'),
+        input: repository,
         commands: [
           'yarn install --frozen-lockfile',
           'npx projen build',
