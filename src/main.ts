@@ -1,4 +1,4 @@
-import * as core from '@aws-cdk/core';
+import { App } from 'aws-cdk-lib';
 import { PipelineStack } from './pipeline-stack';
 import { statics } from './statics';
 
@@ -9,7 +9,7 @@ const deploymentAccount = {
   region: 'eu-west-1',
 };
 
-const app = new core.App();
+const app = new App();
 
 new PipelineStack(app, 'awscabackup-pipeline', {
   env: deploymentAccount,

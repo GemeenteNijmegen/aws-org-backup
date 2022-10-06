@@ -1,16 +1,22 @@
-import * as backup from '@aws-cdk/aws-backup';
-import * as iam from '@aws-cdk/aws-iam';
-import * as kms from '@aws-cdk/aws-kms';
-import * as core from '@aws-cdk/core';
+import {
+  Stack,
+  RemovalPolicy,
+  Duration,
+  Aws,
+  aws_backup as backup,
+  aws_iam as iam,
+  aws_kms as kms,
+} from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { statics } from './statics';
 
-export class CabMemberStack extends core.Stack {
-  constructor(scope: core.Construct, id: string) {
+export class CabMemberStack extends Stack {
+  constructor(scope: Construct, id: string) {
     super(scope, id);
 
     const cabMemberKey = new kms.Key(this, 'cabackup-member-kms', {
-      removalPolicy: core.RemovalPolicy.DESTROY,
-      pendingWindow: core.Duration.days(7),
+      removalPolicy: RemovalPolicy.DESTROY,
+      pendingWindow: Duration.days(7),
       alias: 'cabackup-member-kms',
       description: 'Symmetric AWS CMK for Member Account Backup Vault Encryption',
       enableKeyRotation: true,
@@ -19,7 +25,7 @@ export class CabMemberStack extends core.Stack {
     cabMemberKey.addToResourcePolicy(new iam.PolicyStatement({
       sid: 'Allow use of the key by authorized Backup principal',
       effect: iam.Effect.ALLOW,
-      principals: [new iam.ArnPrincipal(`arn:aws:iam::${core.Aws.ACCOUNT_ID}:role/${statics.cab_iamRoleName}`)],
+      principals: [new iam.ArnPrincipal(`arn:aws:iam::${Aws.ACCOUNT_ID}:role/${statics.cab_iamRoleName}`)],
       actions: [
         'kms:Decrypt',
         'kms:Encrypt',
@@ -46,8 +52,8 @@ export class CabMemberStack extends core.Stack {
       resources: ['*'],
       conditions: {
         StringEquals: {
-          'kms:CallerAccount': core.Aws.ACCOUNT_ID,
-          'kms:ViaService': `cloudformation.${core.Aws.REGION}.amazonaws.com`,
+          'kms:CallerAccount': Aws.ACCOUNT_ID,
+          'kms:ViaService': `cloudformation.${Aws.REGION}.amazonaws.com`,
         },
       },
     }));
@@ -74,37 +80,6 @@ export class CabMemberStack extends core.Stack {
       }),
 
     });
-
-    // cabrole.addToPolicy(new iam.PolicyStatement({
-    //   actions: ['sts:AssumeRole'],
-    // }));
-
-    // new s3.Bucket(this, 'Mybucket')
-
-    // new core.CfnStackSet(this, 'StackSet', {
-    //   stackSetName: 'Sander-test',
-    //   permissionModel: 'SERVICE_MANAGED',
-    //   autoDeployment: {
-    //     enabled: true,
-    //     retainStacksOnAccountRemoval: false,
-    //   },
-    //   stackInstancesGroup: [
-    //     {
-    //       regions: ['eu-west-1'],
-    //       deploymentTargets: {
-    //         organizationalUnitIds: ['ou-mbm8-xzrssyfm'],
-    //       },
-    //     },
-    //   ],
-    //   templateBody: `
-    //     Resources:
-    //       Topic:
-    //         Type: AWS::SNS::Topic
-    //         Properties:
-    //           TopicName: Events
-    //   `,
-    // });
-
 
   }
 }

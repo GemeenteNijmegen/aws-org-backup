@@ -1,11 +1,14 @@
-import * as backup from '@aws-cdk/aws-backup';
-import * as iam from '@aws-cdk/aws-iam';
-import * as kms from '@aws-cdk/aws-kms';
-import * as core from '@aws-cdk/core';
+import {
+  aws_backup as backup,
+  aws_iam as iam,
+  aws_kms as kms,
+} from 'aws-cdk-lib';
+import * as core from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { statics } from './statics';
 
 export class CabCentralStack extends core.Stack {
-  constructor(scope: core.Construct, id: string) {
+  constructor(scope: Construct, id: string) {
     super(scope, id);
 
     const cabCentralKey = new kms.Key(this, 'cabackup-central-kms', {

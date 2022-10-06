@@ -1,5 +1,6 @@
-import * as core from '@aws-cdk/core';
-import * as pipelines from '@aws-cdk/pipelines';
+import * as core from 'aws-cdk-lib';
+import { pipelines as pipelines } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { CabCentralStack } from './cab-central-stack';
 import { CabIamRole } from './cab-iam-role';
 import { CabMasterStack } from './cab-master-stack';
@@ -11,7 +12,7 @@ export interface MemberAccountStageProps extends core.StageProps {
 }
 
 class MemberAccountStage extends core.Stage {
-  constructor(scope: core.Construct, id: string, props: MemberAccountStageProps) {
+  constructor(scope: Construct, id: string, props: MemberAccountStageProps) {
     super(scope, id, props);
 
     if (props.activeRegions > 1) {
@@ -26,7 +27,7 @@ class MemberAccountStage extends core.Stage {
 }
 
 class CentralAccountStage extends core.Stage {
-  constructor(scope: core.Construct, id: string, props: core.StageProps) {
+  constructor(scope: Construct, id: string, props: core.StageProps) {
     super(scope, id, props);
 
     const cabIamRole = new CabIamRole(this, 'CabIamRole');
@@ -36,7 +37,7 @@ class CentralAccountStage extends core.Stage {
 }
 
 class OrgAccountStage extends core.Stage {
-  constructor(scope: core.Construct, id: string, props: core.StageProps) {
+  constructor(scope: Construct, id: string, props: core.StageProps) {
     super(scope, id, props);
 
     new CabMasterStack(this, 'CabMasterStack');
@@ -44,7 +45,7 @@ class OrgAccountStage extends core.Stage {
 }
 
 export class PipelineStack extends core.Stack {
-  constructor(scope: core.Construct, id: string, props: core.StageProps) {
+  constructor(scope: Construct, id: string, props: core.StageProps) {
     super(scope, id, props);
 
     const repository = pipelines.CodePipelineSource.connection('GemeenteNijmegen/aws-org-backup', 'main', {
