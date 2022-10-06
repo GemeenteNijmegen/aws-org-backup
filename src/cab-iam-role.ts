@@ -1,9 +1,12 @@
-import * as iam from '@aws-cdk/aws-iam';
-import * as core from '@aws-cdk/core';
+import * as core from 'aws-cdk-lib';
+import {
+  aws_iam as iam,
+} from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { statics } from './statics';
 
 export class CabIamRole extends core.Stack {
-  constructor(scope: core.Construct, id: string) {
+  constructor(scope: Construct, id: string) {
     super(scope, id);
 
     new iam.Role(this, 'cabackup-role', {

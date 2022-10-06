@@ -1,11 +1,15 @@
 import { readFileSync } from 'fs';
-import * as iam from '@aws-cdk/aws-iam';
-import * as lambda from '@aws-cdk/aws-lambda';
-import * as core from '@aws-cdk/core';
+import {
+  aws_lambda as lambda,
+  aws_iam as iam,
+} from 'aws-cdk-lib';
+import * as core from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 import { statics } from './statics';
 
+
 export class CabMasterStack extends core.Stack {
-  constructor(scope: core.Construct, id: string) {
+  constructor(scope: Construct, id: string) {
     super(scope, id);
 
     const lambdaFunction = new lambda.Function(this, 'OrgPolicyCustomResourceManager', {
